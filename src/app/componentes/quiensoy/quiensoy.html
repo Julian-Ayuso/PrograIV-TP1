@@ -1,1 +1,32 @@
-<p>quiensoy works!</p>
+<div class="container mt-5" *ngIf="usuario">
+  <div class="card mx-auto shadow" style="width: 350px;">
+    
+    <img [src]="usuario.avatar_url" class="card-img-top" alt="avatar">
+
+    <div class="card-body text-center">
+      <h4 class="card-title">{{ usuario.name }}</h4>
+      <p class="text-muted">@{{ usuario.login }}</p>
+
+      <p class="card-text">
+        {{ usuario.bio }}
+      </p>
+
+      <ul class="list-group list-group-flush text-start">
+        <li class="list-group-item">
+          📍 {{ usuario.location || 'Sin ubicación' }}
+        </li>
+        <li class="list-group-item">
+          👥 Seguidores: {{ usuario.followers }}
+        </li>
+        <li class="list-group-item">
+          📦 Repos: {{ usuario.public_repos }}
+        </li>
+      </ul>
+
+      <a [href]="usuario.html_url" target="_blank" class="btn btn-dark mt-3 w-100">
+        Ver perfil
+      </a>
+    </div>
+
+  </div>
+</div>
