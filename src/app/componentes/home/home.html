@@ -1,1 +1,99 @@
-<p>home works!</p>
+<div class="container my-5">
+  
+  <!-- Parte Superior: Saludo y Botones (Jumbotron/Header) -->
+  <div class="p-5 mb-4 bg-light rounded-3 border">
+    <div class="container-fluid py-3">
+      <h1 class="display-5 fw-bold">¡Bienvenido al Portal de Juegos!</h1>
+      <p class="col-md-8 fs-4 text-muted">
+        Inicia sesión para guardar tu progreso o regístrate para comenzar a jugar.
+      </p>
+      <div class="d-grid gap-2 d-md-block">
+        <button class="btn btn-primary btn-lg me-md-2" routerLink="/login" type="button">
+          <i class="bi bi-box-arrow-in-right" ></i> Iniciar Sesión
+        </button>
+        <button class="btn btn-outline-secondary btn-lg" routerLink="/registro" type="button">
+          <i class="bi bi-person-plus"></i> Registrarse
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Parte Inferior: 5 Cards de Juegos -->
+  <h2 class="mb-4">Juegos Destacados</h2>
+  
+  <!-- Usamos row-cols para controlar las columnas responsivamente -->
+  <!-- row-cols-1 (móvil), row-cols-md-3 (tablet), row-cols-lg-5 (desktop) -->
+  <div class="row row-cols-1 row-cols-md-3 row-cols-lg-5 g-4">
+    
+    <!-- Card 1 -->
+    <div class="col">
+      <div class="card h-100 shadow-sm">
+        <img src="assets/juego1.jpg" class="card-img-top" alt="Juego 1" style="height: 150px; object-fit: cover;">
+        <div class="card-body">
+          <h5 class="card-title">Juego 1</h5>
+          <p class="card-text text-muted small">Descripción corta del juego, emocionante aventura.</p>
+        </div>
+        <div class="card-footer bg-transparent border-top-0">
+          <button class="btn btn-sm btn-success w-100">Jugar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="col">
+      <div class="card h-100 shadow-sm">
+        <img src="assets/juego2.jpg" class="card-img-top" alt="Juego 2" style="height: 150px; object-fit: cover;">
+        <div class="card-body">
+          <h5 class="card-title">Juego 2</h5>
+          <p class="card-text text-muted small">Descripción corta del juego, estrategia pura.</p>
+        </div>
+        <div class="card-footer bg-transparent border-top-0">
+          <button class="btn btn-sm btn-success w-100">Jugar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="col">
+      <div class="card h-100 shadow-sm">
+        <img src="assets/juego3.jpg" class="card-img-top" alt="Juego 3" style="height: 150px; object-fit: cover;">
+        <div class="card-body">
+          <h5 class="card-title">Juego 3</h5>
+          <p class="card-text text-muted small">Descripción corta del juego, rompecabezas.</p>
+        </div>
+        <div class="card-footer bg-transparent border-top-0">
+          <button class="btn btn-sm btn-success w-100">Jugar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 4 -->
+    <div class="col">
+      <div class="card h-100 shadow-sm">
+        <img src="assets/juego4.jpg" class="card-img-top" alt="Juego 4" style="height: 150px; object-fit: cover;">
+        <div class="card-body">
+          <h5 class="card-title">Juego 4</h5>
+          <p class="card-text text-muted small">Descripción corta del juego, acción rápida.</p>
+        </div>
+        <div class="card-footer bg-transparent border-top-0">
+          <button class="btn btn-sm btn-success w-100">Jugar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 5 -->
+    <div class="col">
+      <div class="card h-100 shadow-sm">
+        <img src="assets/juego5.jpg" class="card-img-top" alt="Juego 5" style="height: 150px; object-fit: cover;">
+        <div class="card-body">
+          <h5 class="card-title">Juego 5</h5>
+          <p class="card-text text-muted small">Descripción corta del juego, carreras.</p>
+        </div>
+        <div class="card-footer bg-transparent border-top-0">
+          <button class="btn btn-sm btn-success w-100">Jugar</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
