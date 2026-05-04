@@ -8,6 +8,11 @@ export const routes: Routes = [
         pathMatch: 'full'
     },
     {
+        path: 'home',
+        loadComponent: () => import('./componentes/home/home').then(m => m.Home),
+        canActivate: [loginGuard]
+    },
+    {
         path: 'login',
         loadComponent: () => import('./componentes/login/login').then(m => m.Login)
     },
@@ -15,11 +20,7 @@ export const routes: Routes = [
         path: 'registro',
         loadComponent: () => import('./componentes/registro/registro').then(m => m.Registro)
     },
-    {
-        path: 'home',
-        loadComponent: () => import('./componentes/home/home').then(m => m.Home),
-        canActivate: [loginGuard]
-    },
+    
     {
         path: 'quiensoy',
         loadComponent: () => import('./componentes/quiensoy/quiensoy').then(m => m.Quiensoy),
