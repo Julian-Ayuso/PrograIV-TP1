@@ -1,0 +1,16 @@
+.custom-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  backdrop-filter: blur(5px); /* 💡 efecto difuminado */
+  background-color: rgba(0, 0, 0, 0.3); /* opcional: leve oscurecido */
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  z-index: 1050; /* similar al modal de Bootstrap */
+}

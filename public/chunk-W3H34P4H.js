@@ -1,0 +1,1 @@
+import{Ba as a,Pa as t,Qa as n,Va as r}from"./chunk-HOEZXOGY.js";var i=class o{static \u0275fac=function(e){return new(e||o)};static \u0275cmp=a({type:o,selectors:[["app-error"]],decls:4,vars:0,template:function(e,s){e&1&&(t(0,"h1"),r(1,"404"),n(),t(2,"p"),r(3,"P\xE1gina no encontrada"),n())},encapsulation:2})};export{i as Error};

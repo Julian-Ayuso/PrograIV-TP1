@@ -38,7 +38,7 @@
   
   <!-- Usamos row-cols para controlar las columnas responsivamente -->
   <!-- row-cols-1 (móvil), row-cols-md-3 (tablet), row-cols-lg-5 (desktop) -->
-  <div class="row row-cols-1 row-cols-md-3 row-cols-lg-5 g-4">
+  <div *ngIf="logueado" class="row row-cols-1 row-cols-md-3 row-cols-lg-5 g-4">
     
     <!-- Card 1 -->
     <div class="col">
