@@ -1,7 +1,22 @@
 <div class="container my-5">
   
-  <!-- Parte Superior: Saludo y Botones (Jumbotron/Header) -->
-  <div class="p-5 mb-4 bg-light rounded-3 border">
+  <!-- LOGEADO -->
+  <div *ngIf="logueado" class="p-5 mb-4 bg-light rounded-3 border">
+    <div class="container-fluid py-3">
+      <h1 class="display-5 fw-bold">¡Bienvenido {{nombre}}! </h1>
+      <p class="col-md-8 fs-4 text-muted">
+        Selecciona un juego que sea de tu agrado
+      </p>
+      <div class="d-grid gap-2 d-md-block">
+        <button class="btn btn-primary btn-lg me-md-2" (click)="logout()" type="button">
+          <i class="bi bi-box-arrow-in-right" ></i> Cerrar Sesión
+        </button>
+      </div>
+    </div>
+  </div>
+
+   <!-- !LOGEADO -->
+  <div *ngIf="!logueado" class="p-5 mb-4 bg-light rounded-3 border">
     <div class="container-fluid py-3">
       <h1 class="display-5 fw-bold">¡Bienvenido al Portal de Juegos!</h1>
       <p class="col-md-8 fs-4 text-muted">

@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
-import { Router, RouterLink } from "@angular/router";
+import { Router } from "@angular/router";
 import { Supabase } from '../../servicios/supabase';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-login',
-  imports: [RouterLink, FormsModule],
+  imports: [FormsModule, CommonModule],
   templateUrl: './login.html',
   styleUrl: './login.css',
 })
@@ -13,8 +15,10 @@ export class Login {
 
   correoElectronico = '';
   clave = '';
+  mensajeError='';
 
-  constructor(private router: Router, private supabase: Supabase){}
+  constructor(private cdr: ChangeDetectorRef, private router: Router, private supabase: Supabase){}
+
 
   async ingresoRapido() {
   const { data, error } = await this.supabase.iniciarSesion(
@@ -22,7 +26,7 @@ export class Login {
     '123456'
   );
   if (error){
-      console.error('Error: ',error.message);
+      console.log(this.mensajeError)
     }else{
       this.router.navigate(['/home']);
     }
@@ -36,6 +40,7 @@ export class Login {
     const { data, error } = await this.supabase.iniciarSesion(this.correoElectronico,this.clave);
 
     if (error){
+      this.mensajeError = error.message;
       console.error('Error: ',error.message);
     }else{
       this.router.navigate(['/home']);

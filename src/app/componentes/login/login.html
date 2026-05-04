@@ -28,3 +28,15 @@
 </div>
 
 <button (click)="logout()">Cerrar Sesión</button>
+
+<div class="modal-backdrop" *ngIf='mensajeError'>
+  <div class="modal d-block">
+    <div class="modal-dialog">
+      <div class="modal-content p-3">
+        <h5>Error</h5>
+        <p>{{ mensajeError }}</p>
+        <button (click)="mensajeError=''">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
