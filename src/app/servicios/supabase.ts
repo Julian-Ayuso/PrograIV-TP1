@@ -47,6 +47,7 @@ export class Supabase {
       if(error){
         console.error('Error: ',error.message);
       }else{
+        localStorage.setItem('nombreUsuario', usuarioNombre);
         this.router.navigate(['/home']);
       }
     });
@@ -56,13 +57,18 @@ export class Supabase {
     return this.clienteSupabase.from('usuariosTabla').select('*');
   }
 
+  async obtenerNombreBase(email: string) {
+    const { data, error } = await this.clienteSupabase
+      .from('usuariosTabla')
+      .select('nombre')
+      .eq('email', email)
+      .single();
+
+    return localStorage.setItem('nombreUsuario', data?.nombre)
+}
+
   async cerrarSesion() {
   const { error } = await this.clienteSupabase.auth.signOut();
-
-  if (error) {
-    console.error('Error al cerrar sesión:', error.message);
-  } else {
-    console.log('Sesión cerrada correctamente');
-  }
+  if (error) {console.error('Error al cerrar sesión:', error.message);}
 }
 }

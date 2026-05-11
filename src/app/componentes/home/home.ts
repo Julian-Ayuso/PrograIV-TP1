@@ -15,18 +15,19 @@ export class Home {
   constructor(private supabase: Supabase, private cdr: ChangeDetectorRef){}
 
   logueado:boolean = false;
+  usuarioNombre: any = "";
 
   async logout() {
     await this.supabase.cerrarSesion();
   }
 
-  nombre:string='';
-
   async ngOnInit() {
     this.logueado = await this.supabase.logeado();
+    this.usuarioNombre = localStorage.getItem('nombreUsuario');
     const { data } = await this.supabase.obtenerDatosUsuario();
     if (data) {
-      this.nombre = data[0].nombre;
+      this.usuarioNombre = localStorage.getItem('nombreUsuario');
+      console.log(this.usuarioNombre)
     this.cdr.detectChanges()
   }
 }

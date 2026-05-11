@@ -28,6 +28,7 @@ export class Login {
   if (error){
       console.log(this.mensajeError)
     }else{
+      await this.supabase.obtenerNombreBase('prueba321@prueba.com');
       this.router.navigate(['/home']);
     }
   }
@@ -43,6 +44,8 @@ export class Login {
       this.mensajeError = error.message;
       console.error('Error: ',error.message);
     }else{
+      await this.supabase.obtenerNombreBase(this.correoElectronico);
+      console.log()
       this.router.navigate(['/home']);
     }
   }
