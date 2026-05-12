@@ -34,22 +34,23 @@
   </div>
 
   <!-- Parte Inferior: 5 Cards de Juegos -->
-  <h2 class="mb-4">Juegos Destacados</h2>
+  
   
   <!-- Usamos row-cols para controlar las columnas responsivamente -->
   <!-- row-cols-1 (móvil), row-cols-md-3 (tablet), row-cols-lg-5 (desktop) -->
+  <h2 *ngIf="logueado" class="mb-4">Juegos Destacados</h2>
   <div *ngIf="logueado" class="row row-cols-1 row-cols-md-3 row-cols-lg-5 g-4">
     
-    <!-- Card 1 -->
+    <!-- AHORCADO -->
     <div class="col">
       <div class="card h-100 shadow-sm">
         <img src="assets/juego1.jpg" class="card-img-top" alt="Juego 1" style="height: 150px; object-fit: cover;">
         <div class="card-body">
-          <h5 class="card-title">Juego 1</h5>
+          <h5 class="card-title">Ahorcado</h5>
           <p class="card-text text-muted small">Descripción corta del juego, emocionante aventura.</p>
         </div>
         <div class="card-footer bg-transparent border-top-0">
-          <button class="btn btn-sm btn-success w-100">Jugar</button>
+          <button class="btn btn-sm btn-success w-100" routerLink="/juegos/ahorcado">Jugar</button>
         </div>
       </div>
     </div>

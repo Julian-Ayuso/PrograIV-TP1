@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-import {loginGuard} from './guards/login-guard'
 
 export const routes: Routes = [
     {
@@ -10,7 +9,6 @@ export const routes: Routes = [
     {
         path: 'home',
         loadComponent: () => import('./componentes/home/home').then(m => m.Home),
-        //canActivate: [loginGuard]
     },
     {
         path: 'login',
@@ -24,6 +22,12 @@ export const routes: Routes = [
     {
         path: 'quiensoy',
         loadComponent: () => import('./componentes/quiensoy/quiensoy').then(m => m.Quiensoy),
+    },
+    {
+        path: 'juegos',
+        loadChildren: () =>
+            import('./juegos/juegos-module')
+            .then(m => m.JuegosModule)
     },
     {
         path: '**',

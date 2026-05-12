@@ -69,6 +69,7 @@ export class Supabase {
 
   async cerrarSesion() {
   const { error } = await this.clienteSupabase.auth.signOut();
+   this.router.navigate(['/home']).then(() => {window.location.reload()})
   if (error) {console.error('Error al cerrar sesión:', error.message);}
 }
 }

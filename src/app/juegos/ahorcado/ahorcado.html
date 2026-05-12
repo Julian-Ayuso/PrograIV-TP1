@@ -1,0 +1,45 @@
+<!-- ahorcado.component.html -->
+<div class="ahorcado-container">
+  <h2>Juego del Ahorcado</h2>
+  <p>Usuario: <strong>{{ usuarioActual }}</strong></p>
+  <p>Tiempo: {{ tiempoSegundos }} segundos</p>
+
+  <!-- Visualización de vidas -->
+  <div class="vidas">
+    Intentos fallidos: {{ intentosFallidos }} / {{ maxIntentos }}
+  </div>
+
+  <!-- Palabra oculta -->
+  <div class="palabra-pantalla">
+    @for (letra of palabraOculta; track $index) {
+      <span class="letra-espacio">{{ letra }}</span>
+    }
+  </div>
+
+  <!-- Teclado en pantalla (Única entrada válida) -->
+  <div class="teclado-contenedor">
+    @for (letra of abecedario; track letra) {
+      <button 
+        [disabled]="letrasUsadas.has(letra) || juegoTerminado"
+        (click)="seleccionarLetra(letra)"
+        [class.correcto]="letrasUsadas.has(letra) && palabraSecreta.includes(letra)"
+        [class.incorrecto]="letrasUsadas.has(letra) && !palabraSecreta.includes(letra)"
+        class="boton-letra">
+        {{ letra }}
+      </button>
+    }
+  </div>
+
+  <!-- Pantalla de Fin de Juego -->
+  @if (juegoTerminado) {
+    <div class="modal-resultado">
+      <h3 [style.color]="resultado === 'GANADO' ? 'green' : 'red'">
+        ¡Has {{ resultado }}!
+      </h3>
+      <p>La palabra era: <strong>{{ palabraSecreta }}</strong></p>
+      <button (click)="iniciarJuego()" class="boton-reinicio">Jugar de nuevo</button>
+    </div>
+  }
+</div>
+
+<button routerLink="../../home" class="boton-reinicio">Volver a Home</button>

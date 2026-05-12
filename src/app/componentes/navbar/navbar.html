@@ -12,10 +12,10 @@
           <a class="nav-link" routerLink="/home" routerLinkActive="active">Home</a>
         </li>
          <li class="nav-item">
-          <a class="nav-link" routerLink="/login" routerLinkActive="active">Login</a>
+          <a class="nav-link" *ngIf="logueado" routerLink="/login" routerLinkActive="active">Login</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/registro" routerLinkActive="active">Registro</a>
+          <a class="nav-link" *ngIf="logueado" routerLink="/registro" routerLinkActive="active">Registro</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" routerLink="quiensoy">Quién Soy</a>
