@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
 
@@ -72,4 +72,51 @@ export class Supabase {
    this.router.navigate(['/home']).then(() => {window.location.reload()})
   if (error) {console.error('Error al cerrar sesión:', error.message);}
 }
+
+  mensajes = signal<any[]>([]);
+
+  async traerMensajes() {
+
+    const { data } = await this.clienteSupabase
+      .from('mensajes')
+      .select('*')
+      .order('fecha');
+
+    this.mensajes.set(data || []);
+  }
+
+  escucharMensajes() {
+
+    this.clienteSupabase
+      .channel('chat-global')
+
+      .on(
+        'postgres_changes',
+        {
+          event: 'INSERT',
+          schema: 'public',
+          table: 'mensajes'
+        },
+
+        (payload) => {
+
+          this.mensajes.update(lista => [
+            ...lista,
+            payload.new
+          ]);
+        }
+      )
+
+      .subscribe();
+  }
+
+  async enviarMensaje(usuario: string, mensaje: string) {
+
+    await this.clienteSupabase
+      .from('mensajes')
+      .insert({
+        usuario,
+        mensaje
+      });
+  }
 }

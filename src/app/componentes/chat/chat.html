@@ -1,0 +1,46 @@
+<div class="chat-container">
+
+  <div class="mensajes">
+
+    <div
+      *ngFor="let msg of chatService.mensajes()"
+      class="mensaje"
+      [class.propio]="msg.usuario === usuarioActual"
+    >
+
+      <div class="info">
+
+        <span class="usuario">
+          {{ msg.usuario }}
+        </span>
+
+        <span class="hora">
+          {{ msg.fecha | date:'HH:mm' }}
+        </span>
+
+      </div>
+
+      <div class="texto">
+        {{ msg.mensaje }}
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="input-area">
+
+    <input
+      [ngModel]="mensaje()"
+      (ngModelChange)="mensaje.set($event)"
+      placeholder="Escribí un mensaje..."
+    >
+
+    <button (click)="enviar()">
+      Enviar
+    </button>
+
+  </div>
+
+</div>
+<button routerLink="/home" class="boton-reinicio-c">Volver a Home</button>

@@ -1,1 +1,62 @@
-<p>mayor-menor works!</p>
+<div class="juego-container">
+  <!-- Encabezado con información del jugador y métricas -->
+  <div class="header-juego">
+    <h2>Mayor o Menor</h2>
+    <p>Jugador: <strong>{{ usuarioActual }}</strong></p>
+    <div class="metricas">
+      <span>⏱️ Tiempo: {{ tiempoSegundos() }}s</span>
+      <span>🃏 Aciertos: {{ cartasAcertadas }}</span>
+    </div>
+  </div>
+
+  <!-- Pantalla de carga inicial si la API aún no respondió -->
+  <div *ngIf="!cartaActual" class="cargando">
+    <p>Mezclando el mazo...</p>
+  </div>
+
+  <!-- Tablero principal del juego -->
+  <div *ngIf="cartaActual" class="tablero">
+    
+    <!-- Visualización de las cartas -->
+    <div class="zona-cartas">
+      <!-- Carta anterior (se muestra grisada o difuminada si existe) -->
+      <div *ngIf="cartaAnterior" class="carta-box anterior">
+        <p>Anterior</p>
+        <img [src]="cartaAnterior.image" [alt]="cartaAnterior.value" />
+      </div>
+
+      <!-- Carta actual sobre la que se debe decidir -->
+      <div class="carta-box actual">
+        <p>Carta Actual</p>
+        <img [src]="cartaActual.image" [alt]="cartaActual.value" />
+      </div>
+    </div>
+
+    <!-- Controles para el usuario en juego -->
+    <div *ngIf="!juegoTerminado" class="acciones">
+      <p class="pregunta">¿Cómo será la próxima carta?</p>
+      <div class="botones">
+        <button (click)="apostar('MAYOR')" class="btn btn-mayor">▲ Mayor o Igual</button>
+        <button (click)="apostar('MENOR')" class="btn btn-menor">▼ Menor o Igual</button>
+      </div>
+    </div>
+
+    <!-- Pantalla de fin de partida (Ganado o Perdido) -->
+    <div *ngIf="juegoTerminado" class="pantalla-final">
+      <h3>¡Partida Finalizada!</h3>
+      <p class="resultado-texto" *ngIf="resultado === 'GANADO'">🎉 ¡Felicitaciones! Completaste el mazo.</p>
+      <p class="resultado-texto" *ngIf="resultado === 'PERDIDO'">💥 ¡Incorrecto! Perdiste esta ronda.</p>
+      
+      <div class="resumen">
+        <p>Lograste <strong>{{ cartasAcertadas }}</strong> aciertos en <strong>{{ tiempoSegundos() }}</strong> segundos.</p>
+      </div>
+      
+      <button (click)="iniciarJuego()" class="btn btn-reiniciar">Jugar de Nuevo</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- [ngClass]="resultado?.toLowerCase()" -->
+
+<button routerLink="../../home" class="boton-reinicio-mm">Volver a Home</button>

@@ -18,7 +18,10 @@ export const routes: Routes = [
         path: 'registro',
         loadComponent: () => import('./componentes/registro/registro').then(m => m.Registro)
     },
-    
+    {
+        path: 'chat',
+        loadComponent: () => import('./componentes/chat/chat').then(m => m.Chat)
+    },
     {
         path: 'quiensoy',
         loadComponent: () => import('./componentes/quiensoy/quiensoy').then(m => m.Quiensoy),
