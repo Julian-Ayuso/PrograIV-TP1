@@ -47,7 +47,6 @@ export class Ahorcado implements OnInit, OnDestroy {
     this.tiempoSegundos = 0;
     this.juegoTerminado = false;
     this.resultado = null;
-    
     this.iniciarTemporizador();
   }
 
@@ -66,16 +65,13 @@ export class Ahorcado implements OnInit, OnDestroy {
 
   seleccionarLetra(letra: string) {
     if (this.letrasUsadas.has(letra) || this.juegoTerminado) return;
-
     this.letrasUsadas.add(letra);
     this.contadorLetras++;
-
     if (this.palabraSecreta.includes(letra)) {
       this.revelarLetra(letra);
     } else {
       this.intentosFallidos++;
     }
-
     this.verificarEstadoJuego();
   }
 

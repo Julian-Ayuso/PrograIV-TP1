@@ -2,7 +2,6 @@ import { Component, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Supabase } from '../../servicios/supabase';
-import { ChangeDetectorRef } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 @Component({
@@ -15,11 +14,9 @@ import { RouterLink } from '@angular/router';
 export class Chat {
 
   mensaje = signal('');
+  usuarioActual = localStorage.getItem('nombreUsuario');
 
-  usuarioActual =
-    localStorage.getItem('nombreUsuario');
-
-  constructor(public chatService: Supabase, private cdr: ChangeDetectorRef) {}
+  constructor(public chatService: Supabase) {}
 
   async ngOnInit() {
 

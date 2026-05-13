@@ -120,19 +120,14 @@ export class MayorMenor implements OnInit, OnDestroy {
   }
 
   apostar(eleccion: 'MAYOR' | 'MENOR') {
-
     if (this.juegoTerminado || !this.deckId) return;
-
     this.http.get<any>(
       `${this.apiUrl}/api/deck/${this.deckId}/draw/?count=1`
     ).subscribe({
       next: (res) => {
-
         this.cartaAnterior = this.cartaActual;
         this.cartaActual = res.cards[0];
-
         this.cartasRestantes = res.remaining;
-
         this.verificarEleccion(eleccion);
         this.cdr.detectChanges();
       },
@@ -143,50 +138,36 @@ export class MayorMenor implements OnInit, OnDestroy {
   }
 
   verificarEleccion(eleccion: 'MAYOR' | 'MENOR') {
-
-    const valorAnterior =
-      this.valoresCartas[this.cartaAnterior.value];
-
-    const valorActual =
-      this.valoresCartas[this.cartaActual.value];
-
+    const valorAnterior = this.valoresCartas[this.cartaAnterior.value];
+    const valorActual = this.valoresCartas[this.cartaActual.value];
     const esMayor = valorActual >= valorAnterior;
     const esMenor = valorActual <= valorAnterior;
-
     if (
       (eleccion === 'MAYOR' && esMayor) ||
       (eleccion === 'MENOR' && esMenor)
     ) {
-
       this.cartasAcertadas++;
       this.verificarEstadoJuego();
-
     } else {
-
       this.finalizarPartida('PERDIDO');
     }
   }
 
   verificarEstadoJuego() {
-
     if (this.cartasRestantes === 0) {
       this.finalizarPartida('GANADO');
     }
   }
 
   finalizarPartida(resultado: 'GANADO' | 'PERDIDO') {
-
     this.juegoTerminado = true;
     this.resultado = resultado;
-
     this.detenerTemporizador();
-
     this.guardarEnBaseDatos();
     this.cdr.detectChanges();
   }
 
   guardarEnBaseDatos() {
-
     const datosPartida = {
       usuario: this.usuarioActual,
       juego: 'Mayor o Menor',
@@ -195,7 +176,6 @@ export class MayorMenor implements OnInit, OnDestroy {
       resultado: this.resultado,
       fecha: new Date()
     };
-
     console.log(datosPartida);
   }
 }

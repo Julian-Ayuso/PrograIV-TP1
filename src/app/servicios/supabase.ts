@@ -76,20 +76,16 @@ export class Supabase {
   mensajes = signal<any[]>([]);
 
   async traerMensajes() {
-
     const { data } = await this.clienteSupabase
       .from('mensajes')
       .select('*')
       .order('fecha');
-
     this.mensajes.set(data || []);
   }
 
   escucharMensajes() {
-
     this.clienteSupabase
       .channel('chat-global')
-
       .on(
         'postgres_changes',
         {
@@ -97,21 +93,17 @@ export class Supabase {
           schema: 'public',
           table: 'mensajes'
         },
-
         (payload) => {
-
           this.mensajes.update(lista => [
             ...lista,
             payload.new
           ]);
         }
       )
-
       .subscribe();
   }
 
   async enviarMensaje(usuario: string, mensaje: string) {
-
     await this.clienteSupabase
       .from('mensajes')
       .insert({
