@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef } from '@angular/core';
 import { signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { Supabase } from '../../servicios/supabase';
 
 @Component({
   selector: 'app-mayor-menor',
@@ -42,7 +43,7 @@ export class MayorMenor implements OnInit {
     'ACE': 14
   };
 
-  constructor(private http: HttpClient,private cdr: ChangeDetectorRef) {}
+  constructor(private http: HttpClient,private cdr: ChangeDetectorRef, public rankingService: Supabase) {}
 
   ngOnInit() {
     this.iniciarJuego();
@@ -149,15 +150,14 @@ export class MayorMenor implements OnInit {
     this.cdr.detectChanges();
   }
 
-  guardarEnBaseDatos() {
+  async guardarEnBaseDatos() {
     const datosPartida = {
       usuario: this.usuarioActual,
-      juego: 'Mayor o Menor',
-      cartasAcertadas: this.cartasAcertadas,
-      tiempoSegundos: this.tiempoSegundos,
-      resultado: this.resultado,
+      juego: 'Mayor-menor',
+      tiempoEstatico: this.tiempoSegundos(),
       fecha: new Date()
     };
+    await this.rankingService.enviarPuntaje(datosPartida.juego, datosPartida.usuario, datosPartida.tiempoEstatico, datosPartida.fecha)
     console.log(datosPartida);
   }
 }

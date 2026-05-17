@@ -27,6 +27,10 @@ export const routes: Routes = [
         loadComponent: () => import('./componentes/quiensoy/quiensoy').then(m => m.Quiensoy),
     },
     {
+        path: 'ranking',
+        loadComponent: () => import('./componentes/ranking/ranking').then(m => m.Ranking),
+    },
+    {
         path: 'juegos',
         loadChildren: () =>
             import('./juegos/juegos-module')

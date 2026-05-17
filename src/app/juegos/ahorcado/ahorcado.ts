@@ -1,6 +1,7 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router'; 
+import { Supabase } from '../../servicios/supabase';
 
 @Component({
   selector: 'app-ahorcado',
@@ -27,8 +28,10 @@ export class Ahorcado implements OnInit, OnDestroy {
 
   // Métricas para la base de datos
   contadorLetras: number = 0;
-  tiempoSegundos: number = 0;
+  tiempoSegundos = signal(0)
   intervaloTiempo: any;
+
+  constructor(public rankingService: Supabase) {}
 
   ngOnInit() {
     this.iniciarJuego();
@@ -44,7 +47,7 @@ export class Ahorcado implements OnInit, OnDestroy {
     this.letrasUsadas.clear();
     this.intentosFallidos = 0;
     this.contadorLetras = 0;
-    this.tiempoSegundos = 0;
+    this.tiempoSegundos = signal(0);
     this.juegoTerminado = false;
     this.resultado = null;
     this.iniciarTemporizador();
@@ -53,7 +56,7 @@ export class Ahorcado implements OnInit, OnDestroy {
   iniciarTemporizador() {
     this.detenerTemporizador();
     this.intervaloTiempo = setInterval(() => {
-      this.tiempoSegundos++;
+    this.tiempoSegundos.update(v => v + 1);
     }, 1000);
   }
 
@@ -95,5 +98,17 @@ export class Ahorcado implements OnInit, OnDestroy {
     this.juegoTerminado = true;
     this.resultado = resultado;
     this.detenerTemporizador();
+    this.guardarEnBaseDatos();
+  }
+
+  async guardarEnBaseDatos() {
+    const datosPartida = {
+      usuario: this.usuarioActual,
+      juego: 'ahorcado',
+      tiempoEstatico: this.tiempoSegundos(),
+      fecha: new Date()
+    };
+    await this.rankingService.enviarPuntaje(datosPartida.juego, datosPartida.usuario, datosPartida.tiempoEstatico, datosPartida.fecha)
+    console.log(datosPartida);
   }
 }

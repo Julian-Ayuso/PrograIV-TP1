@@ -1,0 +1,22 @@
+/* Transiciones globales */
+.transition-all {
+  transition: all 0.2s ease-in-out;
+}
+
+/* Efecto hover sobre las filas de la tabla de posiciones */
+.ranking-row:hover {
+  background-color: rgba(255, 193, 7, 0.04) !important;
+}
+
+.ranking-row:hover td {
+  color: #ffc107 !important;
+}
+
+/* Animación sutil de escala para los botones de las pestañas */
+.nav-tab-btn:hover {
+  transform: translateY(-1px);
+}
+
+.nav-tab-btn:active {
+  transform: translateY(0);
+}

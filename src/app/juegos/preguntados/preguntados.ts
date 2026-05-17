@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ChangeDetectorRef } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { Supabase } from '../../servicios/supabase';
 
 @Component({
   selector: 'app-preguntados',
@@ -29,7 +30,7 @@ export class Preguntados implements OnInit, OnDestroy {
   preguntaActual: any;
 
 
-  constructor(private http: HttpClient, private cdr: ChangeDetectorRef) {}
+  constructor(private http: HttpClient, private cdr: ChangeDetectorRef, public rankingService: Supabase) {}
 
   ngOnInit() {
   this.http.get<any>(this.apiUrl).subscribe({
@@ -54,7 +55,7 @@ export class Preguntados implements OnInit, OnDestroy {
   this.errores = 0;
   this.numPregunta = 0;
   this.juegoTerminado = false;
-  this.tiempoSegundos.set(0); 
+  this.tiempoSegundos = signal(0); 
   // Mezclamos y tomamos 10 a partir de lo que ya tenemos guardado en memoria
   this.preguntasSimplificados = this.preguntas.map(pregunta => ({
     nombre: pregunta.question,
@@ -101,10 +102,11 @@ export class Preguntados implements OnInit, OnDestroy {
   finalizarPartida() {
     this.juegoTerminado = true;
     this.detenerTemporizador();
+    this.guardarEnBaseDatos();
     this.preguntaActual = false;
     const datosPartida = {
       usuario: this.usuarioActual,
-      juego: 'Pregunta2',
+      juego: 'preguntados',
       preguntasAcertadas: this.aciertos,
       totalPreguntas: this.numPregunta,
       tiempoSegundos: this.tiempoSegundos,
@@ -124,4 +126,16 @@ export class Preguntados implements OnInit, OnDestroy {
       clearInterval(this.intervaloTiempo);
     }
   }
+
+  async guardarEnBaseDatos() {
+    const datosPartida = {
+      usuario: this.usuarioActual,
+      juego: 'preguntados',
+      tiempoEstatico: this.tiempoSegundos(),
+      fecha: new Date()
+    };
+    await this.rankingService.enviarPuntaje(datosPartida.juego, datosPartida.usuario, datosPartida.tiempoEstatico, datosPartida.fecha)
+    console.log(datosPartida);
+  }
+  
 }

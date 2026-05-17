@@ -27,7 +27,6 @@ export class Home {
     const { data } = await this.supabase.obtenerDatosUsuario();
     if (data) {
       this.usuarioNombre = localStorage.getItem('nombreUsuario');
-      console.log(this.usuarioNombre)
     this.cdr.detectChanges()
   }
 }

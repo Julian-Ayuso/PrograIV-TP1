@@ -2,12 +2,11 @@ import { Component, signal, ViewChild, ElementRef, effect } from '@angular/core'
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Supabase } from '../../servicios/supabase';
-import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-chat',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink],
+  imports: [CommonModule, FormsModule],
   templateUrl: './chat.html',
   styleUrl: './chat.css'
 })
@@ -30,7 +29,6 @@ export class Chat {
         this.hacerScrollAlFinal();
       }, 60);
     });
-
   }
 
   async ngOnInit() {

@@ -1,1 +1,136 @@
-<p>ranking works!</p>
+<div class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-10 col-lg-8">
+      
+      <!-- Contenedor Principal Estilo Tarjeta Gamer Oscura -->
+      <div class="card bg-dark text-white shadow-lg rounded-4 border-secondary animate-scale-up">
+        <div class="card-body p-4 p-md-5">
+
+          <!-- Encabezado de la Página -->
+          <div class="text-center mb-4">
+            <div class="display-5 mb-2">🏆</div>
+            <h1 class="h2 fw-black text-warning text-uppercase tracking-wider">Leaderboard & Rankings</h1>
+            <p class="text-secondary small">Compará los mejores tiempos históricos de cada juego</p>
+          </div>
+
+          <!-- Botonera / Pestañas de Navegación con Contraste Bootstrap -->
+          <nav class="d-flex flex-wrap justify-center gap-2 mb-4 pb-3 border-bottom border-secondary border-opacity-50">
+            <button 
+              (click)="cargarRanking('ahorcado')"
+              [class.btn-warning]="juegoSeleccionado === 'ahorcado'"
+              [class.text-dark]="juegoSeleccionado === 'ahorcado'"
+              [class.btn-outline-secondary]="juegoSeleccionado !== 'ahorcado'"
+              [class.text-white]="juegoSeleccionado !== 'ahorcado'"
+              class="btn px-4 py-2 rounded-3 fw-bold text-uppercase tracking-wide font-monospace nav-tab-btn transition-all">
+              🎯 Ahorcado
+            </button>
+
+            <button 
+              (click)="cargarRanking('preguntados')"
+              [class.btn-warning]="juegoSeleccionado === 'preguntados'"
+              [class.text-dark]="juegoSeleccionado === 'preguntados'"
+              [class.btn-outline-secondary]="juegoSeleccionado !== 'preguntados'"
+              [class.text-white]="juegoSeleccionado !== 'preguntados'"
+              class="btn px-4 py-2 rounded-3 fw-bold text-uppercase tracking-wide font-monospace nav-tab-btn transition-all">
+              ❓ Preguntados
+            </button>
+
+            <button 
+              (click)="cargarRanking('Mayor-menor')"
+              [class.btn-warning]="juegoSeleccionado === 'Mayor-menor'"
+              [class.text-dark]="juegoSeleccionado === 'Mayor-menor'"
+              [class.btn-outline-secondary]="juegoSeleccionado !== 'Mayor-menor'"
+              [class.text-white]="juegoSeleccionado !== 'Mayor-menor'"
+              class="btn px-4 py-2 rounded-3 fw-bold text-uppercase tracking-wide font-monospace nav-tab-btn transition-all">
+              🔀 Mayor/Menor
+            </button>
+
+            <button 
+              (click)="cargarRanking('jueguini')"
+              [class.btn-warning]="juegoSeleccionado === 'jueguini'"
+              [class.text-dark]="juegoSeleccionado === 'jueguini'"
+              [class.btn-outline-secondary]="juegoSeleccionado !== 'jueguini'"
+              [class.text-white]="juegoSeleccionado !== 'jueguini'"
+              class="btn px-4 py-2 rounded-3 fw-bold text-uppercase tracking-wide font-monospace nav-tab-btn transition-all">
+              👾 Jueguini
+            </button>
+          </nav>
+
+          <!-- Título Dinámico de la Tabla Seleccionada -->
+          <div class="p-3 rounded-3 bg-secondary bg-opacity-10 border border-secondary border-opacity-50 mb-3 d-flex justify-content-between align-items-center">
+            <h2 class="h5 fw-bold text-light mb-0 text-uppercase tracking-wide">
+              🎮 Tabla: <span class="text-warning font-monospace">{{ juegoSeleccionado.replace('-', ' ') }}</span>
+            </h2>
+            <span class="badge bg-success-subtle text-success border border-success-subtle px-2.5 py-1.5 rounded-pill font-monospace small">
+              ⏱️ Mejor Tiempo Primero
+            </span>
+          </div>
+
+          <!-- Contenedor de la Tabla de Posiciones -->
+          <div class="table-responsive rounded-3 border border-secondary border-opacity-50 bg-black bg-opacity-20">
+            <table class="table table-dark table-hover align-middle mb-0 text-left">
+              <thead>
+                <tr class="text-secondary text-uppercase fw-bold border-bottom border-secondary" style="font-size: 12px; letter-spacing: 0.5px;">
+                  <th class="p-3 font-monospace text-center" style="width: 15%;">Puesto</th>
+                  <th class="p-3" style="width: 40%;">Usuario</th>
+                  <th class="p-3" style="width: 25%;">Tiempo</th>
+                  <th class="p-3 text-end" style="width: 20%;">Fecha</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (item of Servicio.mensajes(); track $index) {
+                  <tr class="border-bottom border-secondary border-opacity-25 transition-all ranking-row">
+                    
+                    <!-- Puesto con medallas especiales estilo gamer para el Top 3 -->
+                    <td class="p-3 text-center">
+                      @if ($index === 0) {
+                        <span class="badge bg-warning text-dark fw-black rounded-2 font-monospace px-2.5 py-1.5 shadow-sm" style="font-size: 12px;">🏆 1º</span>
+                      } @else if ($index === 1) {
+                        <span class="badge bg-light text-dark fw-black rounded-2 font-monospace px-2.5 py-1.5 shadow-sm" style="font-size: 12px;">🥈 2º</span>
+                      } @else if ($index === 2) {
+                        <span class="badge bg-secondary text-white fw-black rounded-2 font-monospace px-2.5 py-1.5 shadow-sm" style="font-size: 12px;">🥉 3º</span>
+                      } @else {
+                        <span class="text-secondary font-monospace fw-bold">#{{ $index + 1 }}</span>
+                      }
+                    </td>
+
+                    <!-- Nombre del Jugador -->
+                    <td class="p-3 fw-bold text-light text-wrap">
+                      {{ item.usuario }}
+                    </td>
+
+                    <!-- Tiempo Marcado -->
+                    <td class="p-3">
+                      <span class="badge bg-danger-subtle text-danger border border-danger-subtle px-2.5 py-1.5 rounded-3 font-monospace fw-bold">
+                        {{ item.tiempo }}s
+                      </span>
+                    </td>
+
+                    <!-- Fecha de Logro -->
+                    <td class="p-3 text-end text-secondary small font-monospace">
+                      {{ item.fecha | date:'dd/MM/yyyy' }}
+                    </td>
+
+                  </tr>
+                } @empty {
+                  <!-- Estado de Lista Vacía -->
+                  <tr>
+                    <td colSpan="4" class="p-5 text-center">
+                      <div class="text-secondary py-3">
+                        <div class="fs-2 mb-2">📡</div>
+                        <h6 class="text-light fw-bold mb-1">Sin registros activos</h6>
+                        <small class="text-uppercase tracking-wider text-muted" style="font-size: 11px;">No hay puntajes guardados en este juego todavía.</small>
+                      </div>
+                    </td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

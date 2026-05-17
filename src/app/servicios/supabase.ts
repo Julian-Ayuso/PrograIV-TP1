@@ -16,7 +16,6 @@ export class Supabase {
 
   async logeado(){
     const { data, error } = await this.clienteSupabase.auth.getSession();
-    console.log(data)
     if (data.session) {
       return true;
     } else {
@@ -63,7 +62,6 @@ export class Supabase {
       .select('nombre')
       .eq('email', email)
       .single();
-
     return localStorage.setItem('nombreUsuario', data?.nombre)
 }
 
@@ -111,4 +109,23 @@ export class Supabase {
         mensaje
       });
   }
+
+  async enviarPuntaje(juego:string, usuario: any, tiempo: number, fecha:Date) {
+    await this.clienteSupabase
+      .from(juego)
+      .insert({
+        usuario,
+        tiempo,
+        fecha
+      });
+  }
+
+  async traerPuntajes(tabla:string) {
+    const { data } = await this.clienteSupabase
+      .from(tabla)
+      .select('usuario, tiempo, fecha')
+      .order('tiempo', { ascending: true });
+    this.mensajes.set(data || []);
+  }
+
 }
