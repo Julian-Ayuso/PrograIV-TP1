@@ -1,0 +1,5 @@
+/* Detalle visual para la biografía del usuario */
+.italic-bio {
+  font-style: italic;
+  min-height: 42px;
+}

@@ -1,53 +1,117 @@
-<div class="container d-flex justify-content-center align-items-center vh-100">
-  <div class="card shadow p-4" style="width: 400px;">
-    <h3 class="text-center mb-4">Registro</h3>
-
-    <form>
-      <div class="mb-3">
-        <label for="email" class="form-label">Email</label>
-        <input type="email" class="form-control" id="email" name= "correoElectronico" [(ngModel)]="correoElectronico" placeholder="Ingresá tu email">
-      </div>
+<div class="container d-flex justify-content-center align-items-center min-vh-100 my-5">
+  <div class="row justify-content-center w-100">
+    <div class="col-12 col-md-8 col-lg-5">
       
-      <div class="mb-3">
-        <label for="nombre" class="form-label">Nombre</label>
-        <input type="text" class="form-control" id="nombre" name= "nombre" [(ngModel)]="nombre" placeholder="Ingresá tu nombre">
+      <!-- Contenedor Principal Estilo Tarjeta Gamer Oscura -->
+      <div class="card bg-dark text-white shadow-lg rounded-4 border-secondary overflow-hidden animate-scale-up">
+        
+        <!-- ENCABEZADO DE CREACIÓN DE CUENTA -->
+        <div class="card-header bg-black bg-opacity-20 border-bottom border-secondary p-4 text-center">
+          <h3 class="h4 fw-black text-light mb-1 tracking-wide text-uppercase">Crear Cuenta</h3>
+          <small class="text-secondary text-uppercase tracking-wider font-monospace">Registrate para guardar tu progreso</small>
+        </div>
+
+        <div class="card-body p-4 p-md-5">
+          <form>
+            
+            <!-- Campo: Email -->
+            <div class="mb-3">
+              <label for="email" class="form-label small text-secondary text-uppercase fw-bold font-monospace mb-1">Email</label>
+              <input type="email" 
+                     class="form-control bg-secondary bg-opacity-10 border-secondary text-white p-2.5 rounded-3 chat-input" 
+                     id="email" 
+                     name="correoElectronico" 
+                     [(ngModel)]="correoElectronico"
+                     maxlength="30" 
+                     placeholder="Ingresá tu email">
+            </div>
+            
+            <!-- Fila con Nombre y Apellido combinados (Ahorra espacio visual) -->
+            <div class="row g-3 mb-3">
+              <div class="col-6">
+                <label for="nombre" class="form-label small text-secondary text-uppercase fw-bold font-monospace mb-1">Nombre</label>
+                <input type="text" 
+                       class="form-control bg-secondary bg-opacity-10 border-secondary text-white p-2.5 rounded-3 chat-input" 
+                       id="nombre" 
+                       name="nombre" 
+                       [(ngModel)]="nombre"
+                       maxlength="12" 
+                       placeholder="Tu nombre">
+              </div>
+              <div class="col-6">
+                <label for="apellido" class="form-label small text-secondary text-uppercase fw-bold font-monospace mb-1">Apellido</label>
+                <input type="text" 
+                       class="form-control bg-secondary bg-opacity-10 border-secondary text-white p-2.5 rounded-3 chat-input" 
+                       id="apellido" 
+                       name="apellido" 
+                       [(ngModel)]="apellido"
+                       maxlength="12" 
+                       placeholder="Tu apellido">
+              </div>
+            </div>
+
+            <!-- Fila con Edad y Contraseña -->
+            <div class="row g-3 mb-4">
+              <div class="col-4">
+                <label for="edad" class="form-label small text-secondary text-uppercase fw-bold font-monospace mb-1">Edad</label>
+                <input type="number" 
+                       class="form-control bg-secondary bg-opacity-10 border-secondary text-white p-2.5 rounded-3 chat-input" 
+                       id="edad" 
+                       name="edad" 
+                       [(ngModel)]="edad" 
+                       placeholder="Edad">
+              </div>
+              <div class="col-8">
+                <label for="password" class="form-label small text-secondary text-uppercase fw-bold font-monospace mb-1">Contraseña</label>
+                <input type="password" 
+                       class="form-control bg-secondary bg-opacity-10 border-secondary text-white p-2.5 rounded-3 chat-input" 
+                       id="password" 
+                       name="clave" 
+                       [(ngModel)]="clave"
+                       maxlength="12" 
+                       placeholder="Creá una contraseña">
+              </div>
+            </div>
+
+            <!-- Botones de Acción Estilo Control de Juego -->
+            <div class="d-flex gap-3 mt-4">
+              <button (click)="registrarUsuario()" class="btn btn-warning w-50 py-2.5 fw-bold text-dark text-uppercase tracking-wider shadow-sm rounded-3 transition-all">
+                Enviar
+              </button>
+              <button type="button" class="btn btn-outline-secondary w-50 py-2.5 fw-bold text-uppercase tracking-wider rounded-3">
+                Cancelar
+              </button>
+            </div>
+
+          </form>
+        </div>
+
       </div>
 
-      <div class="mb-3">
-        <label for="apellido" class="form-label">Apellido</label>
-        <input type="text" class="form-control" id="apellido" name= "apellido" [(ngModel)]="apellido" placeholder="Ingresá tu apellido">
-      </div>
-
-      <div class="mb-3">
-        <label for="edad" class="form-label">Edad</label>
-        <input type="integer" class="form-control" id="edad" name= "edad"[(ngModel)]="edad" placeholder="Ingresá tu edad">
-      </div>
-
-      <div class="mb-3">
-        <label for="password" class="form-label">Contraseña</label>
-        <input type="password" class="form-control" id="password" name="clave"[(ngModel)]="clave" placeholder="Creá una contraseña">
-      </div>
-
-      <div class="d-flex justify-content-between mt-4">
-        <button (click)="registrarUsuario()" class="btn btn-success w-50 me-2">
-          Enviar
-        </button>
-        <button type="button" class="btn btn-secondary w-50">
-          Cancelar
-        </button>
-      </div>
-    </form>
+    </div>
   </div>
 </div>
 
-<div class="custom-backdrop" *ngIf='mensajeError'>
-  <div class="modal d-block">
-    <div class="modal-dialog">
-      <div class="modal-content p-3">
-        <h5>Error</h5>
-        <p>{{ mensajeError }}</p>
-        <button (click)="mensajeError=''">Cerrar</button>
+<!-- MODAL DE ERROR ADAPTADO (Oscuro con borde de alerta rojo) -->
+<div class="modal d-block bg-black bg-opacity-70 animate-fade-in" tabindex="-1" *ngIf="mensajeError" style="backdrop-filter: blur(4px);">
+  <div class="modal-dialog modal-dialog-centered" style="max-width: 400px;">
+    <div class="modal-content bg-dark text-white border border-danger rounded-4 shadow-lg overflow-hidden">
+      
+      <!-- Encabezado del Error -->
+      <div class="modal-header border-bottom border-secondary bg-danger bg-opacity-10 p-3 d-flex align-items-center gap-2">
+        <span class="fs-4 text-danger">⚠️</span>
+        <h5 class="modal-title fw-black text-danger text-uppercase tracking-wide mb-0" style="font-size: 16px;">Error de Registro</h5>
       </div>
+      
+      <!-- Cuerpo del Error -->
+      <div class="modal-body p-4 text-center">
+        <p class="text-secondary small lh-base mb-4">{{ mensajeError }}</p>
+        
+        <button (click)="mensajeError=''" class="btn btn-outline-danger w-100 py-2.5 fw-bold text-uppercase tracking-wider rounded-3">
+          Entendido
+        </button>
+      </div>
+
     </div>
   </div>
 </div>

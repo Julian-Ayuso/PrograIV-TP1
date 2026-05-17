@@ -1,0 +1,79 @@
+<div class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-6 col-lg-5">
+      
+      <!-- Contenedor Principal Estilo Tarjeta Gamer Oscura -->
+      <div class="card bg-dark text-white shadow-lg rounded-4 border-secondary">
+        <div class="card-body p-4 p-md-5">
+
+          <!-- ENCABEZADO -->
+          <div class="text-center border-bottom border-secondary pb-3 mb-4">
+            <h2 class="h4 fw-black text-light mb-1 tracking-wide text-uppercase">Secuencia Secreta</h2>
+            <small class="text-secondary text-uppercase tracking-wider font-monospace">Poné a prueba tu memoria</small>
+          </div>
+
+          <!-- CAJA DE ESTADO / FEEDBACK (Dinámica según acierto, error o base) -->
+          <div class="mb-4">
+            <div class="alert text-center py-3 rounded-3 border-opacity-25 transition-all"
+                 [ngClass]="{
+                   'alert-danger border-danger text-danger bg-danger-subtle': juegoTerminado && !gano,
+                   'alert-success border-success text-success bg-success-subtle': gano,
+                   'alert-warning border-warning text-warning bg-warning-subtle': !juegoTerminado
+                 }" role="alert">
+              <p class="mb-0 fw-semibold tracking-wide small text-uppercase">
+                {{ juegoTerminado && !gano ? '💥 ' : gano ? '🏆 ' : '⚡ ' }}{{ mensajeEstado }}
+              </p>
+            </div>
+          </div>
+
+          <!-- PANEL DE 4 BOTONES DEL JUEGO (Grilla de 2x2 Simétrica) -->
+          <div class="row g-3 mb-4">
+            <!-- Botón 1: Azul -->
+            <div class="col-6">
+              <button class="btn btn-juego-secuencia btn-simon-azul w-100 py-4 fs-3 fw-black rounded-3 font-monospace shadow-sm" 
+                      (click)="presionarBoton(1)" 
+                      [disabled]="juegoTerminado">
+                1
+              </button>
+            </div>
+            <!-- Botón 2: Verde -->
+            <div class="col-6">
+              <button class="btn btn-juego-secuencia btn-simon-verde w-100 py-4 fs-3 fw-black rounded-3 font-monospace shadow-sm" 
+                      (click)="presionarBoton(2)" 
+                      [disabled]="juegoTerminado">
+                2
+              </button>
+            </div>
+            <!-- Botón 3: Rojo -->
+            <div class="col-6">
+              <button class="btn btn-juego-secuencia btn-simon-rojo w-100 py-4 fs-3 fw-black rounded-3 font-monospace shadow-sm" 
+                      (click)="presionarBoton(3)" 
+                      [disabled]="juegoTerminado">
+                3
+              </button>
+            </div>
+            <!-- Botón 4: Amarillo -->
+            <div class="col-6">
+              <button class="btn btn-juego-secuencia btn-simon-amarillo w-100 py-4 fs-3 fw-black rounded-3 font-monospace shadow-sm" 
+                      (click)="presionarBoton(4)" 
+                      [disabled]="juegoTerminado">
+                4
+              </button>
+            </div>
+          </div>
+
+          <!-- CONTROLES FIN DE PARTIDA -->
+          @if (juegoTerminado) {
+            <div class="animate-scale-up text-center pt-2">
+              <button (click)="reiniciarJuego()" class="btn btn-warning btn-lg w-100 py-3 fw-bold text-dark text-uppercase tracking-wider shadow-sm rounded-3">
+                Jugar de Nuevo
+              </button>
+            </div>
+          }
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

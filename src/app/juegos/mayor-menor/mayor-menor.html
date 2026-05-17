@@ -1,61 +1,121 @@
-<div class="juego-container">
-  <!-- Encabezado con información del jugador y métricas -->
-  <div class="header-juego">
-    <h2>Mayor o Menor</h2>
-    <p>Jugador: <strong>{{ usuarioActual }}</strong></p>
-    <div class="metricas">
-      <span>⏱️ Tiempo: {{ tiempoSegundos() }}s</span>
-      <span>🃏 Aciertos: {{ cartasAcertadas }}</span>
-    </div>
-  </div>
-
-  <!-- Pantalla de carga inicial si la API aún no respondió -->
-  <div *ngIf="!cartaActual" class="cargando">
-    <p>Mezclando el mazo...</p>
-  </div>
-
-  <!-- Tablero principal del juego -->
-  <div *ngIf="cartaActual" class="tablero">
-    
-    <!-- Visualización de las cartas -->
-    <div class="zona-cartas">
-      <!-- Carta anterior (se muestra grisada o difuminada si existe) -->
-      <div *ngIf="cartaAnterior" class="carta-box anterior">
-        <p>Anterior</p>
-        <img [src]="cartaAnterior.image" [alt]="cartaAnterior.value" />
-      </div>
-
-      <!-- Carta actual sobre la que se debe decidir -->
-      <div class="carta-box actual">
-        <p>Carta Actual</p>
-        <img [src]="cartaActual.image" [alt]="cartaActual.value" />
-      </div>
-    </div>
-
-    <!-- Controles para el usuario en juego -->
-    <div *ngIf="!juegoTerminado" class="acciones">
-      <p class="pregunta">¿Cómo será la próxima carta?</p>
-      <div class="botones">
-        <button (click)="apostar('MAYOR')" class="btn btn-mayor">▲ Mayor o Igual</button>
-        <button (click)="apostar('MENOR')" class="btn btn-menor">▼ Menor o Igual</button>
-      </div>
-    </div>
-
-    <!-- Pantalla de fin de partida (Ganado o Perdido) -->
-    <div *ngIf="juegoTerminado" class="pantalla-final">
-      <h3>¡Partida Finalizada!</h3>
-      <p class="resultado-texto" *ngIf="resultado === 'GANADO'">🎉 ¡Felicitaciones! Completaste el mazo.</p>
-      <p class="resultado-texto" *ngIf="resultado === 'PERDIDO'">💥 ¡Incorrecto! Perdiste esta ronda.</p>
+<div class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-8 col-lg-6">
       
-      <div class="resumen">
-        <p>Lograste <strong>{{ cartasAcertadas }}</strong> aciertos en <strong>{{ tiempoSegundos() }}</strong> segundos.</p>
+      <!-- Contenedor Principal Estilo Tarjeta Gamer Oscura -->
+      <div class="card bg-dark text-white shadow-lg rounded-4 border-secondary">
+        <div class="card-body p-4 p-md-5">
+
+          <!-- ENCABEZADO Y MÉTRICAS -->
+          <div class="d-flex justify-content-between align-items-center border-bottom border-secondary pb-3 mb-4">
+            <div>
+              <h2 class="h4 fw-black text-light mb-1 tracking-wide text-uppercase">Mayor o Menor</h2>
+              <p class="small text-secondary mb-0">Jugador: <strong class="text-warning">{{ usuarioActual }}</strong></p>
+            </div>
+            <div class="d-flex gap-2">
+              <span class="badge bg-warning-subtle text-warning border border-warning-subtle px-2.5 py-1.5 rounded-pill font-monospace">
+                ⏱️ {{ tiempoSegundos() }}s
+              </span>
+              <span class="badge bg-success-subtle text-success border border-success-subtle px-2.5 py-1.5 rounded-pill font-monospace">
+                🃏 Aciertos: {{ cartasAcertadas }}
+              </span>
+            </div>
+          </div>
+
+          <!-- ESTADO 1: PANTALLA DE CARGA -->
+          <div *ngIf="!cartaActual" class="text-center py-5 animate-fade-in">
+            <div class="spinner-border text-warning mb-3" style="width: 3rem; height: 3rem;" role="status">
+              <span class="visually-hidden">Cargando...</span>
+            </div>
+            <h5 class="text-light fw-bold mb-1">Mezclando el mazo</h5>
+            <small class="text-secondary text-uppercase tracking-wider">Preparando las cartas...</small>
+          </div>
+
+          <!-- TABLERO PRINCIPAL DEL JUEGO -->
+          <div *ngIf="cartaActual" class="animate-fade-in">
+            
+            <!-- ZONA DE CARTAS (Contenedor Grid con efecto de profundidad) -->
+            <div class="row g-3 justify-content-center align-items-center mb-4 p-3 rounded-3 bg-secondary bg-opacity-10 border border-secondary border-opacity-50">
+              
+              <!-- Carta anterior (Se atenúa con opacidad y filtro) -->
+              <div *ngIf="cartaAnterior" class="col-5 text-center opacity-50 img-blur-effect">
+                <small class="text-secondary text-uppercase fw-bold d-block mb-2 font-monospace" style="font-size: 11px;">Anterior</small>
+                <img [src]="cartaAnterior.image" [alt]="cartaAnterior.value" class="img-fluid rounded-3 shadow-sm border border-secondary" style="max-height: 160px;" />
+              </div>
+
+              <!-- Carta actual (Protagonista con resplandor) -->
+              <div class="col-6 text-center">
+                <small class="text-warning text-uppercase fw-black d-block mb-2 font-monospace tracking-wider" style="font-size: 11px;">⚡ Carta Actual</small>
+                <img [src]="cartaActual.image" [alt]="cartaActual.value" class="img-fluid rounded-3 shadow border border-warning" style="max-height: 190px; filter: drop-shadow(0 0 10px rgba(255,193,7,0.2));" />
+              </div>
+            </div>
+
+            <!-- CONTROLES DE APUESTA -->
+            <div *ngIf="!juegoTerminado" class="text-center">
+              <p class="text-light fw-semibold mb-3">¿Cómo será la próxima carta?</p>
+              
+              <div class="row g-2">
+                <div class="col-6">
+                  <button (click)="apostar('MAYOR')" class="btn btn-outline-light w-100 p-3 rounded-3 fw-bold d-flex flex-column align-items-center justify-content-center option-btn text-uppercase">
+                    <span class="fs-4 mb-1 text-warning">▲</span>
+                    <span>Mayor o Igual</span>
+                  </button>
+                </div>
+                <div class="col-6">
+                  <button (click)="apostar('MENOR')" class="btn btn-outline-light w-100 p-3 rounded-3 fw-bold d-flex flex-column align-items-center justify-content-center option-btn text-uppercase">
+                    <span class="fs-4 mb-1 text-warning">▼</span>
+                    <span>Menor o Igual</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- PANTALLA DE FIN DE PARTIDA -->
+            <div *ngIf="juegoTerminado" class="text-center py-3 animate-scale-up">
+              <div class="display-3 mb-2">{{ resultado === 'GANADO' ? '🏆' : '💥' }}</div>
+              <h3 class="h2 fw-black mb-4 tracking-wide text-uppercase" [ngClass]="resultado === 'GANADO' ? 'text-success' : 'text-danger'">
+                ¡Partida Finalizada!
+              </h3>
+              
+              <!-- Mensajes condicionales en Alertas adaptadas -->
+              <div *ngIf="resultado === 'GANADO'" class="alert alert-success border-opacity-25 rounded-3 mb-4 py-2.5 small">
+                🎉 ¡Felicitaciones! Completaste el mazo.
+              </div>
+              <div *ngIf="resultado === 'PERDIDO'" class="alert alert-danger border-opacity-25 rounded-3 mb-4 py-2.5 small">
+                💥 ¡Incorrecto! Perdiste esta ronda.
+              </div>
+              
+              <!-- Panel de Resumen Estadístico -->
+              <div class="row g-2 mb-4 justify-content-center">
+                <div class="col-5">
+                  <div class="bg-black bg-opacity-20 border border-success border-opacity-25 p-3 rounded-3 border-2">
+                    <small class="text-secondary text-uppercase fw-bold d-block" style="font-size: 10px;">Aciertos</small>
+                    <span class="h3 fw-black text-success d-block mt-0.5">{{ cartasAcertadas }}</span>
+                  </div>
+                </div>
+                <div class="col-5">
+                  <div class="bg-black bg-opacity-20 border border-secondary border-opacity-50 p-3 rounded-3">
+                    <small class="text-secondary text-uppercase fw-bold d-block" style="font-size: 10px;">Tiempo total</small>
+                    <span class="h3 fw-bold text-white d-block mt-0.5 font-monospace">{{ tiempoSegundos() }}s</span>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Botón de Reinicio -->
+              <button (click)="iniciarJuego()" class="btn btn-warning btn-lg w-100 py-3 fw-bold text-dark text-uppercase tracking-wider shadow-sm rounded-3">
+                Jugar de Nuevo
+              </button>
+            </div>
+
+          </div>
+
+        </div>
       </div>
       
-      <button (click)="iniciarJuego()" class="btn btn-reiniciar">Jugar de Nuevo</button>
     </div>
-
   </div>
 </div>
+
 
 <!-- [ngClass]="resultado?.toLowerCase()" -->
 

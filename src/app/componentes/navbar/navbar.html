@@ -1,26 +1,40 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <div class="container-fluid">
-    <a class="navbar-brand">Sala de Juegos</a>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom border-secondary shadow-sm py-3">
+  <div class="container-fluid px-md-4">
     
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+    <!-- Identificador de la plataforma -->
+    <a class="navbar-brand fw-black tracking-wide text-uppercase d-flex align-items-center gap-2 font-monospace text-light" style="cursor: pointer;" routerLink="/home">
+      <span class="text-warning">🎮</span> Sala de Juegos
+    </a>
+    
+    <!-- Botón Hamburguesa Móvil Adaptado -->
+    <button class="navbar-toggler border-secondary p-2 rounded-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
+    <!-- Enlaces de Navegación -->
     <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ms-auto">
+      <ul class="navbar-nav ms-auto gap-1 mt-3 mt-lg-0">
+        
+        <!-- Enlace: Home -->
         <li class="nav-item">
-          <a class="nav-link" routerLink="/home" routerLinkActive="active">Home</a>
+          <a class="nav-link px-3 py-2 rounded-3 fw-bold text-uppercase tracking-wider font-monospace custom-nav-link" 
+             routerLink="/home" 
+             routerLinkActive="active-gamer">
+            Inicio
+          </a>
         </li>
-         <!-- <li class="nav-item">
-          <a class="nav-link" *ngIf="logueado" routerLink="/login" routerLinkActive="active">Login</a>
-        </li>
+        
+        <!-- Enlace: Quién Soy -->
         <li class="nav-item">
-          <a class="nav-link" *ngIf="logueado" routerLink="/registro" routerLinkActive="active">Registro</a>
-        </li> -->
-        <li class="nav-item">
-          <a class="nav-link" routerLink="quiensoy">Quién Soy</a>
+          <a class="nav-link px-3 py-2 rounded-3 fw-bold text-uppercase tracking-wider font-monospace custom-nav-link" 
+             routerLink="/quiensoy" 
+             routerLinkActive="active-gamer">
+            Quién Soy
+          </a>
         </li>
+
       </ul>
     </div>
+
   </div>
 </nav>

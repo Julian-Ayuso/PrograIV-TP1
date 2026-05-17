@@ -1,42 +1,85 @@
-<div class="container d-flex justify-content-center align-items-center vh-100">
-  <div class="card shadow p-4" style="width: 350px;">
-    <h3 class="text-center mb-4">Login</h3>
+<div class="container d-flex justify-content-center align-items-center min-vh-100 my-5">
+  <div class="row justify-content-center w-100">
+    <div class="col-12 col-md-6 col-lg-4">
+      
+      <!-- Contenedor Principal Estilo Tarjeta Gamer Oscura -->
+      <div class="card bg-dark text-white shadow-lg rounded-4 border-secondary overflow-hidden animate-scale-up">
+        
+        <!-- ENCABEZADO DE INGRESO -->
+        <div class="card-header bg-black bg-opacity-20 border-bottom border-secondary p-4 text-center">
+          <h3 class="h4 fw-black text-light mb-1 tracking-wide text-uppercase">Iniciar Sesión</h3>
+          <small class="text-secondary text-uppercase tracking-wider font-monospace">Ingresá a tu panel de control</small>
+        </div>
 
-    <form>
-      <div class="mb-3">
-        <label for="username" class="form-label">Email</label>
-        <input type="text" class="form-control" id="username" name="correoElectronico" [(ngModel)]="correoElectronico" placeholder="Ingresá tu Email">
+        <div class="card-body p-4 p-md-5">
+          <form>
+            
+            <!-- Campo: Email / Usuario -->
+            <div class="mb-3">
+              <label for="username" class="form-label small text-secondary text-uppercase fw-bold font-monospace mb-1">Email</label>
+              <input type="text" 
+                     class="form-control bg-secondary bg-opacity-10 border-secondary text-white p-2.5 rounded-3 chat-input" 
+                     id="username" 
+                     name="correoElectronico" 
+                     [(ngModel)]="correoElectronico" 
+                     placeholder="Ingresá tu Email">
+            </div>
+
+            <!-- Campo: Contraseña -->
+            <div class="mb-4">
+              <label for="password" class="form-label small text-secondary text-uppercase fw-bold font-monospace mb-1">Contraseña</label>
+              <input type="password" 
+                     class="form-control bg-secondary bg-opacity-10 border-secondary text-white p-2.5 rounded-3 chat-input" 
+                     id="password" 
+                     name="clave" 
+                     [(ngModel)]="clave" 
+                     placeholder="Ingresá tu contraseña">
+            </div>
+
+            <!-- Botón Principal de Ingreso -->
+            <button type="submit" 
+                    (click)="ingresar()" 
+                    class="btn btn-warning w-100 py-3 mb-4 fw-bold text-dark text-uppercase tracking-wider shadow-sm rounded-3 transition-all">
+              Ingresar ➔
+            </button>
+          </form>
+
+          <!-- SECCIÓN DE ACCESO RÁPIDO -->
+          <div class="text-center border-top border-secondary pt-4 mt-2">
+            <p class="small text-secondary text-uppercase fw-bold font-monospace mb-3 tracking-wide">Acceso rápido de prueba</p>
+            <button (click)="ingresoRapido()" class="btn btn-outline-light w-100 py-2.5 fw-bold text-uppercase tracking-wider rounded-3 option-btn">
+              ⚡ Ingreso Rápido
+            </button>
+          </div>
+
+        </div>
+
       </div>
 
-      <div class="mb-3">
-        <label for="password" class="form-label">Contraseña</label>
-        <input type="password" class="form-control" id="password" name="clave" [(ngModel)]="clave" placeholder="Ingresá tu contraseña">
-      </div>
-
-      <button type="submit" (click)="ingresar()" class="btn btn-primary w-100 mb-3">
-        Ingresar
-      </button>
-    </form>
-
-    <div class="text-center">
-      <p class="mb-2">Acceso rápido:</p>
-      <div class="d-flex justify-content-between">
-        <button (click)="ingresoRapido()" class="btn btn-secondary w-100 mb-3">Ingreso Rápido</button>
-      </div>
     </div>
   </div>
 </div>
 
-<button (click)="logout()">Cerrar Sesión</button>
-
-<div class="custom-backdrop" *ngIf='mensajeError'>
-  <div class="modal d-block">
-    <div class="modal-dialog">
-      <div class="modal-content p-3">
-        <h5>Error</h5>
-        <p>{{ mensajeError }}</p>
-        <button (click)="mensajeError=''">Cerrar</button>
+<!-- MODAL DE ERROR ADAPTADO (Mismo diseño unificado) -->
+<div class="modal d-block bg-black bg-opacity-70 animate-fade-in" tabindex="-1" *ngIf="mensajeError" style="backdrop-filter: blur(4px);">
+  <div class="modal-dialog modal-dialog-centered" style="max-width: 400px;">
+    <div class="modal-content bg-dark text-white border border-danger rounded-4 shadow-lg overflow-hidden">
+      
+      <!-- Encabezado del Error -->
+      <div class="modal-header border-bottom border-secondary bg-danger bg-opacity-10 p-3 d-flex align-items-center gap-2">
+        <span class="fs-4 text-danger">⚠️</span>
+        <h5 class="modal-title fw-black text-danger text-uppercase tracking-wide mb-0" style="font-size: 16px;">Error de Autenticación</h5>
       </div>
+      
+      <!-- Cuerpo del Error -->
+      <div class="modal-body p-4 text-center">
+        <p class="text-secondary small lh-base mb-4">{{ mensajeError }}</p>
+        
+        <button (click)="mensajeError=''" class="btn btn-outline-danger w-100 py-2.5 fw-bold text-uppercase tracking-wider rounded-3">
+          Cerrar
+        </button>
+      </div>
+
     </div>
   </div>
 </div>

@@ -1,0 +1,62 @@
+/* Base común para los botones de la secuencia */
+.btn-juego-secuencia {
+  border: 2px solid transparent;
+  transition: all 0.2s ease-in-out;
+  background-opacity: 0.15;
+}
+
+/* Modificadores por color estilo gamer apagado/encendido */
+.btn-simon-azul {
+  background-color: rgba(13, 110, 253, 0.15);
+  color: #0d6efd;
+  border-color: rgba(13, 110, 253, 0.3);
+}
+.btn-simon-azul:hover:not(:disabled) {
+  background-color: #0d6efd !important;
+  color: #fff !important;
+  box-shadow: 0 0 15px rgba(13, 110, 253, 0.5);
+  transform: translateY(-2px);
+}
+
+.btn-simon-verde {
+  background-color: rgba(25, 135, 84, 0.15);
+  color: #198754;
+  border-color: rgba(25, 135, 84, 0.3);
+}
+.btn-simon-verde:hover:not(:disabled) {
+  background-color: #198754 !important;
+  color: #fff !important;
+  box-shadow: 0 0 15px rgba(25, 135, 84, 0.5);
+  transform: translateY(-2px);
+}
+
+.btn-simon-rojo {
+  background-color: rgba(220, 53, 69, 0.15);
+  color: #dc3545;
+  border-color: rgba(220, 53, 69, 0.3);
+}
+.btn-simon-rojo:hover:not(:disabled) {
+  background-color: #dc3545 !important;
+  color: #fff !important;
+  box-shadow: 0 0 15px rgba(220, 53, 69, 0.5);
+  transform: translateY(-2px);
+}
+
+.btn-simon-amarillo {
+  background-color: rgba(255, 193, 7, 0.15);
+  color: #ffc107;
+  border-color: rgba(255, 193, 7, 0.3);
+}
+.btn-simon-amarillo:hover:not(:disabled) {
+  background-color: #ffc107 !important;
+  color: #212529 !important;
+  box-shadow: 0 0 15px rgba(255, 193, 7, 0.5);
+  transform: translateY(-2px);
+}
+
+/* Opacidad cuando el botón está deshabilitado por fin de juego */
+.btn-juego-secuencia:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none;
+}

@@ -1,45 +1,35 @@
-.chat-container {
-  width: 400px;
-  margin: auto;
-}
-
-.mensajes {
-  height: 500px;
+/* Altura fija y scroll para la sala de chat */
+.chat-mensajes-scroll {
+  height: 400px;
   overflow-y: auto;
-  border: 1px solid gray;
-  padding: 10px;
+  scroll-behavior: smooth;
 }
 
-.mensaje {
-  background: #eee;
-  padding: 8px;
-  margin-bottom: 10px;
-  border-radius: 10px;
-  width: fit-content;
-  max-width: 70%;
+/* Personalización de la barra de scroll (Estilo sutil gamer) */
+.chat-mensajes-scroll::-webkit-scrollbar {
+  width: 6px;
 }
-
-.propio {
-  margin-left: auto;
-  background: #bde0fe;
+.chat-mensajes-scroll::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
 }
-
-.info {
-  font-size: 12px;
-  margin-bottom: 5px;
-  display: flex;
-  gap: 10px;
-}
-
-.usuario {
-  font-weight: bold;
-}
-.boton-reinicio-c {
-  padding: 10px 20px;
-  font-size: 1rem;
-  background-color: #3498db;
-  color: white;
-  border: none;
+.chat-mensajes-scroll::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
   border-radius: 4px;
-  cursor: pointer;
+}
+.chat-mensajes-scroll::-webkit-scrollbar-thumb:hover {
+  background: #ffc107;
+}
+
+/* Límite de ancho para las burbujas de chat */
+.max-w-chat {
+  max-width: 80%;
+  word-break: break-word;
+}
+
+/* Quitar el resplandor azul clásico de Bootstrap en el input oscuro */
+.chat-input:focus {
+  background-color: rgba(255, 255, 255, 0.08) !important;
+  border-color: #ffc107 !important;
+  color: #fff !important;
+  box-shadow: 0 0 10px rgba(255, 193, 7, 0.15) !important;
 }

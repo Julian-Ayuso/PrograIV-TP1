@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef } from '@angular/core';
@@ -12,21 +12,17 @@ import { RouterLink } from '@angular/router';
   templateUrl: './mayor-menor.html',
   styleUrl: './mayor-menor.css'
 })
-export class MayorMenor implements OnInit, OnDestroy {
+export class MayorMenor implements OnInit {
 
   usuarioActual = localStorage.getItem('nombreUsuario');
   private apiUrl = 'https://deckofcardsapi.com';
-
   deckId: string = '';
   cartaActual: any = null;
   cartaAnterior: any = null;
-
   cartasAcertadas = 0;
   cartasRestantes = 0;
-
   juegoTerminado = false;
   resultado: 'GANADO' | 'PERDIDO' | null = null;
-
   tiempoSegundos = signal(0);
   intervaloTiempo: any;
 
@@ -51,30 +47,21 @@ export class MayorMenor implements OnInit, OnDestroy {
   ngOnInit() {
     this.iniciarJuego();
   }
-
-  ngOnDestroy() {
-    this.detenerTemporizador();
-  }
-
+  
   iniciarJuego() {
-
     this.cartasAcertadas = 0;
     this.tiempoSegundos = signal(0);
     this.juegoTerminado = false;
     this.resultado = null;
     this.cartaAnterior = null;
     this.cartaActual = null;
-
     this.http.get<any>(
       `${this.apiUrl}/api/deck/new/shuffle/?deck_count=1`
     ).subscribe({
       next: (res) => {
-
         console.log('Shuffle:', res);
-
         this.deckId = res.deck_id;
         this.cartasRestantes = res.remaining;
-
         this.iniciarTemporizador();
         this.obtenerCartaInicial();
       },
@@ -85,17 +72,13 @@ export class MayorMenor implements OnInit, OnDestroy {
   }
 
   obtenerCartaInicial() {
-
     this.http.get<any>(
       `${this.apiUrl}/api/deck/${this.deckId}/draw/?count=1`
     ).subscribe({
       next: (res) => {
-
         console.log('Carta inicial:', res);
-
         this.cartaActual = res.cards[0];
         this.cartasRestantes = res.remaining;
-
         console.log('Carta actual:', this.cartaActual);
         this.cdr.detectChanges();
       },
@@ -107,7 +90,6 @@ export class MayorMenor implements OnInit, OnDestroy {
 
   iniciarTemporizador() {
     this.detenerTemporizador();
-
     this.intervaloTiempo = setInterval(() => {
     this.tiempoSegundos.update(v => v + 1);
     }, 1000);

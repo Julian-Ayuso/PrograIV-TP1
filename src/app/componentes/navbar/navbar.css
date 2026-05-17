@@ -1,18 +1,19 @@
-.navbar {
-  background: rgba(0, 0, 0, 0.6) !important;
-  backdrop-filter: blur(10px);
+/* Estilo base interactivo para los links de la Navbar */
+.custom-nav-link {
+  color: rgba(255, 255, 255, 0.6) !important;
+  transition: all 0.2s ease-in-out;
 }
 
-.navbar-brand {
-  font-weight: bold;
-  color: #a855f7 !important;
+/* Efecto Hover sobre los elementos */
+.custom-nav-link:hover {
+  color: #ffc107 !important;
+  background-color: rgba(255, 193, 7, 0.05);
 }
 
-.nav-link {
-  color: #e5e7eb !important;
-  transition: 0.3s;
-}
-
-.nav-link:hover {
-  color: #a855f7 !important;
+/* Clase activa cuando el usuario está en esa sección (Angular routerLinkActive) */
+.active-gamer {
+  color: #ffc107 !important;
+  background-color: rgba(255, 193, 7, 0.12) !important;
+  border: 1px solid rgba(255, 193, 7, 0.25);
+  text-shadow: 0 0 10px rgba(255, 193, 7, 0.3);
 }

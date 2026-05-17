@@ -1,46 +1,81 @@
-<div class="chat-container">
+<div class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-8 col-lg-6">
+      
+      <!-- Contenedor Principal Estilo Tarjeta Gamer Oscura -->
+      <div class="card bg-dark text-white shadow-lg rounded-4 border-secondary overflow-hidden">
+        
+        <!-- ENCABEZADO DEL CHAT -->
+        <div class="card-header bg-black bg-opacity-20 border-bottom border-secondary p-4 d-flex justify-content-between align-items-center">
+          <div>
+            <h2 class="h4 fw-black text-light mb-1 tracking-wide text-uppercase">Chat Global</h2>
+            <small class="text-secondary text-uppercase tracking-wider font-monospace">Canal de Jugadores</small>
+          </div>
+          <span class="badge bg-success-subtle text-success border border-success-subtle px-2.5 py-1.5 rounded-pill font-monospace small">
+            🟢 En Línea
+          </span>
+        </div>
 
-  <div class="mensajes">
+        <!-- ÁREA DE MENSAJES (Con scroll contenedor) -->
+        <div #scrollContenedor class="card-body p-4 chat-mensajes-scroll d-flex flex-column gap-3 bg-black bg-opacity-10">
+          
+          <div
+            *ngFor="let msg of chatService.mensajes()"
+            class="d-flex flex-column animate-fade-in"
+            [class.align-items-end]="msg.usuario === usuarioActual"
+            [class.align-items-start]="msg.usuario !== usuarioActual"
+          >
+            <!-- Info superior: Usuario y Hora -->
+            <div class="d-flex align-items-center gap-2 mb-1 px-1 font-monospace" style="font-size: 11px;">
+              <span class="fw-bold" [class.text-warning]="msg.usuario === usuarioActual" [class.text-info]="msg.usuario !== usuarioActual">
+                {{ msg.usuario === usuarioActual ? '👾 Tú' : msg.usuario }}
+              </span>
+              <span class="text-secondary">{{ msg.fecha | date:'HH:mm' }}</span>
+            </div>
 
-    <div
-      *ngFor="let msg of chatService.mensajes()"
-      class="mensaje"
-      [class.propio]="msg.usuario === usuarioActual"
-    >
+            <!-- Burbuja de Texto -->
+            <div 
+              class="p-3 rounded-3 max-w-chat shadow-sm border text-wrap lh-base"
+              [class.bg-warning]="msg.usuario === usuarioActual"
+              [class.text-dark]="msg.usuario === usuarioActual"
+              [class.border-warning]="msg.usuario === usuarioActual"
+              [class.bg-secondary]="msg.usuario !== usuarioActual"
+              [class.bg-opacity-10]="msg.usuario !== usuarioActual"
+              [class.text-light]="msg.usuario !== usuarioActual"
+              [class.border-secondary]="msg.usuario !== usuarioActual"
+            >
+              {{ msg.mensaje }}
+            </div>
+          </div>
 
-      <div class="info">
+        </div>
 
-        <span class="usuario">
-          {{ msg.usuario }}
-        </span>
+        <!-- ÁREA DE ENTRADA DE TEXTO -->
+        <div class="card-footer bg-black bg-opacity-30 border-top border-secondary p-3">
+          <div class="input-group">
+            <input
+              [ngModel]="mensaje()"
+              (ngModelChange)="mensaje.set($event)"
+              (keyup.enter)="enviar()"
+              type="text"
+              class="form-control bg-secondary bg-opacity-10 border-secondary text-white p-3 rounded-start-3 chat-input"
+              placeholder="Escribí un mensaje..."
+              aria-label="Mensaje del jugador"
+            >
+            <button 
+              (click)="enviar()" 
+              class="btn btn-warning px-4 fw-bold text-dark text-uppercase tracking-wider rounded-end-3 d-flex align-items-center justify-content-center transition-all"
+              type="button"
+            >
+              Enviar ➔
+            </button>
+          </div>
+        </div>
 
-        <span class="hora">
-          {{ msg.fecha | date:'HH:mm' }}
-        </span>
-
-      </div>
-
-      <div class="texto">
-        {{ msg.mensaje }}
       </div>
 
     </div>
-
   </div>
-
-  <div class="input-area">
-
-    <input
-      [ngModel]="mensaje()"
-      (ngModelChange)="mensaje.set($event)"
-      placeholder="Escribí un mensaje..."
-    >
-
-    <button (click)="enviar()">
-      Enviar
-    </button>
-
-  </div>
-
 </div>
+
 <button routerLink="/home" class="boton-reinicio-c">Volver a Home</button>

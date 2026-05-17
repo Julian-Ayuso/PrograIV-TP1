@@ -1,2 +1,54 @@
-<h1>404</h1>
-<p>Página no encontrada</p>
+<div class="container d-flex justify-content-center align-items-center min-vh-100 my-5">
+  <div class="row justify-content-center w-100 animate-scale-up">
+    <div class="col-12 col-md-8 col-lg-5 text-center">
+      
+      <!-- Contenedor Principal Estilo Tarjeta Gamer Oscura -->
+      <div class="card bg-dark text-white shadow-lg rounded-4 border-danger border-opacity-50 overflow-hidden">
+        
+        <!-- Decoración visual superior estilo alerta o falla -->
+        <div class="bg-danger bg-opacity-10 py-3 border-bottom border-danger border-opacity-25">
+          <span class="fs-1">📡❌</span>
+        </div>
+
+        <div class="card-body p-4 p-md-5">
+          
+          <!-- Código de Error Gigante con efecto de color -->
+          <h1 class="display-1 fw-black text-danger font-monospace mb-0 tracking-wider error-code-404">
+            404
+          </h1>
+          
+          <!-- Subtítulo de Error -->
+          <h3 class="h4 fw-black text-light text-uppercase tracking-wide mt-2 mb-3">
+            Conexión Perdida / Página No Encontrada
+          </h3>
+          
+          <!-- Descripción del problema con jerga gamer -->
+          <p class="text-secondary small lh-base mb-4 mx-auto" style="max-width: 340px;">
+            El servidor no pudo encontrar el mapa o la ruta que estabas buscando. Es posible que el enlace haya expirado o la zona esté fuera de servicio.
+          </p>
+
+          <!-- Botones de Acción para Retornar -->
+          <div class="d-flex flex-column gap-2">
+            <!-- Botón Principal: Volver al menú/inicio -->
+            <a href="/" class="btn btn-warning py-3 fw-bold text-dark text-uppercase tracking-wider shadow-sm rounded-3 transition-all">
+              🎮 Volver al Inicio
+            </a>
+            
+            <!-- Botón Secundario: Reintentar o ir al perfil -->
+            <button onclick="window.history.back()" class="btn btn-outline-secondary py-2.5 fw-bold text-uppercase tracking-wider rounded-3">
+              ↩️ Regresar
+            </button>
+          </div>
+
+        </div>
+
+        <!-- Pie de tarjeta simulando estado del sistema -->
+        <div class="card-footer bg-black bg-opacity-30 border-top border-secondary p-3 font-monospace" style="font-size: 11px;">
+          <span class="text-danger">STATUS: ERROR_MAP_NOT_FOUND</span>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>

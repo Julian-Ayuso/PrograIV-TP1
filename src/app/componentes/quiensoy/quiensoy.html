@@ -1,34 +1,79 @@
-<div class="container mt-5" *ngIf="usuario">
-  <div class="card mx-auto shadow" style="width: 350px;">
-    
-    <img [src]="usuario.avatar_url" class="card-img-top" alt="avatar">
+<div class="container my-5" *ngIf="usuario">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-6 col-lg-5">
+      
+      <!-- Contenedor Principal Estilo Tarjeta Gamer Oscura -->
+      <div class="card bg-dark text-white shadow-lg rounded-4 border-secondary overflow-hidden animate-fade-in">
+        
+        <!-- Imagen de perfil / Avatar con gradiente superior -->
+        <div class="position-relative text-center bg-black bg-opacity-40 border-bottom border-secondary p-4">
+          <img [src]="usuario.avatar_url" 
+               class="rounded-circle border border-3 border-warning shadow img-fluid" 
+               alt="avatar del jugador" 
+               style="width: 120px; height: 120px; object-fit: cover; filter: drop-shadow(0 0 10px rgba(255,193,7,0.3));">
+          
+          <!-- Badge flotante de estado -->
+          <span class="position-absolute top-0 end-0 m-3 badge bg-warning text-dark fw-black font-monospace text-uppercase tracking-wider">
+            Nivel 1
+          </span>
+        </div>
 
-    <div class="card-body text-center">
-      <h4 class="card-title">{{ usuario.name }}</h4>
-      <p class="text-muted">@{{ usuario.login }}</p>
+        <!-- Cuerpo de la tarjeta -->
+        <div class="card-body p-4 text-center">
+          <h4 class="h4 fw-black text-light mb-1 tracking-wide">{{ usuario.name }}</h4>
+          <p class="small text-warning font-monospace mb-3">@{{ usuario.login }}</p>
 
-      <p class="card-text">
-        {{ usuario.bio }}
-      </p>
+          <p class="text-secondary small lh-base mb-4 italic-bio">
+            {{ usuario.bio || 'Este jugador no ha definido una biografía en su perfil.' }}
+          </p>
 
-      <ul class="list-group list-group-flush text-start">
-        <li class="list-group-item">
-          📍 {{ usuario.location || 'Sin ubicación' }}
-        </li>
-        <li class="list-group-item">
-          👥 Seguidores: {{ usuario.followers }}
-        </li>
-        <li class="list-group-item">
-          📦 Repos: {{ usuario.public_repos }}
-        </li>
-      </ul>
+          <!-- Lista de Estadísticas del Perfil -->
+          <div class="d-flex flex-column gap-2 text-start mb-4">
+            
+            <div class="d-flex align-items-center justify-content-between p-2.5 rounded-3 bg-secondary bg-opacity-10 border border-secondary border-opacity-50">
+              <span class="small text-secondary fw-semibold">📍 Ubicación</span>
+              <span class="small text-light fw-medium">{{ usuario.location || 'Sin ubicación' }}</span>
+            </div>
 
-      <a [href]="usuario.html_url" target="_blank" class="btn btn-dark mt-3 w-100">
-        Ver perfil
-      </a>
+            <div class="d-flex align-items-center justify-content-between p-2.5 rounded-3 bg-secondary bg-opacity-10 border border-secondary border-opacity-50">
+              <span class="small text-secondary fw-semibold">👥 Seguidores</span>
+              <span class="badge bg-secondary-subtle text-light border border-secondary font-monospace">{{ usuario.followers }}</span>
+            </div>
+
+            <div class="d-flex align-items-center justify-content-between p-2.5 rounded-3 bg-secondary bg-opacity-10 border border-secondary border-opacity-50">
+              <span class="small text-secondary fw-semibold">📦 Repositorios</span>
+              <span class="badge bg-warning-subtle text-warning border border-warning-subtle font-monospace">{{ usuario.public_repos }}</span>
+            </div>
+
+          </div>
+
+          <!-- Botón de acción al perfil externo -->
+          <a [href]="usuario.html_url" target="_blank" class="btn btn-outline-light w-100 p-3 rounded-3 fw-bold option-btn text-uppercase tracking-wider">
+            Ver Perfil de GitHub ➔
+          </a>
+        </div>
+
+      </div>
+
+      <!-- SECCIÓN EXTRA: INFORMACIÓN DEL JUEGO INCREMENTAL (CLICKER) -->
+      <div class="card bg-dark text-white shadow-lg rounded-4 border-warning border-opacity-25 mt-4 overflow-hidden animate-scale-up">
+        <div class="card-body p-4 bg-black bg-opacity-20">
+          <div class="d-flex align-items-center gap-3 mb-3">
+            <div class="fs-2 text-warning">🖱️</div>
+            <div>
+              <h5 class="fw-black text-light mb-0 text-uppercase tracking-wide">Proyecto: Incremental Clicker</h5>
+              <span class="badge bg-success-subtle text-success border border-success-subtle rounded-pill font-monospace" style="font-size: 10px;">
+                Desarrollo Propio
+              </span>
+            </div>
+          </div>
+          
+          <p class="text-secondary small lh-base mb-0">
+            Mecánica principal: El usuario deberá <strong class="text-warning">hacer clic</strong> repetidamente para acumular recursos y desbloquear <strong class="text-light">mejoras automáticas o multiplicadores</strong> que lo ayuden a incrementar la tasa de clics por segundo de manera constante.
+          </p>
+        </div>
+      </div>
+
     </div>
-
   </div>
 </div>
-<br><br>
-<p class="text-center">El juego elegido en desarrollo propio es un incremental, el usuario debera clickar para ganar mejoras que lo ayuden a sumar clicks</p>

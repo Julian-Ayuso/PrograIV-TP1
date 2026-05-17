@@ -1,0 +1,127 @@
+<div class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-6 col-lg-5">
+      
+      <!-- Contenedor Principal Estilo Tarjeta Gamer Oscura -->
+      <div class="card bg-dark text-white shadow-lg rounded-4 border-secondary">
+        <div class="card-body p-4 p-md-5">
+
+          <!-- ESTADO 1: JUEGO EN PROGRESO -->
+          @if (!juegoTerminado && preguntaActual) {
+            <div class="animate-fade-in">
+              
+              <!-- Barra superior de estado -->
+              <div class="d-flex justify-content-between align-items-center border-bottom border-secondary pb-3 mb-4">
+                <div>
+                  <span class="badge bg-success-subtle text-success border border-success-subtle px-2.5 py-1.5 rounded-pill me-2 font-monospace">
+                    ✨ Aciertos: {{ aciertos }}
+                  </span>
+                  <span class="badge bg-danger-subtle text-danger border border-danger-subtle px-2.5 py-1.5 rounded-pill font-monospace">
+                    ❤️ Vidas: {{ maxErrores - errores }}
+                  </span>
+                </div>
+                <span class="badge bg-warning-subtle text-warning border border-warning-subtle px-3 py-2 rounded-pill font-monospace fs-6">
+                  ⏱️ {{ tiempoSegundos() }}s
+                </span>
+              </div>
+
+              <!-- Progreso numérico y barra visual de Bootstrap -->
+              <div class="mb-4">
+                <div class="d-flex justify-content-between align-items-center small text-secondary text-uppercase fw-bold mb-1">
+                  <span>Progreso de Trivia</span>
+                  <span class="text-warning">{{ numPregunta + 1 }} / {{ preguntasSimplificados.length }}</span>
+                </div>
+                <div class="progress bg-secondary bg-opacity-25" style="height: 8px;">
+                  <div class="progress-bar bg-warning progress-bar-striped progress-bar-animated transition-all" 
+                       role="progressbar" 
+                       [style.width.%]="((numPregunta + 1) / preguntasSimplificados.length) * 100">
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Cuadro de la Pregunta -->
+              <div class="p-4 rounded-3 bg-secondary bg-opacity-10 border border-secondary border-opacity-50 mb-4">
+                <h2 [innerHTML]="preguntaActual.nombre" class="h5 fw-bold text-light mb-0 lh-base"></h2>
+              </div>
+
+              <!-- Botones de opciones con Contraste Bootstrap -->
+              <div class="d-flex flex-column gap-3">
+                @for (opcion of opciones; track opcion; let idx = $index) {
+                  <button (click)="verificarRespuesta(opcion)" 
+                          class="btn btn-outline-light text-start p-3 rounded-3 d-flex align-items-center justify-content-between border-secondary-subtle bg-opacity-10 shadow-sm transition-all option-btn">
+                    <div class="d-flex align-items-center gap-3">
+                      <!-- Indicador de letra (Fondo gris oscuro y texto blanco fijo) -->
+                      <span class="badge bg-secondary text-white fw-black d-flex align-items-center justify-content-center rounded-2 font-monospace" style="width: 32px; height: 32px; font-size: 14px;">
+                        {{ ['A', 'B', 'C', 'D'][idx] }}
+                      </span>
+                      <!-- Texto de la respuesta -->
+                      <span [innerHTML]="opcion" class="fw-semibold text-wrap"></span>
+                    </div>
+                    <span class="text-secondary arrow-icon">➔</span>
+                  </button>
+                }
+              </div>
+
+            </div>
+          }
+
+          <!-- ESTADO 2: JUEGO TERMINADO -->
+          @if (juegoTerminado) {
+            <div class="text-center py-3 animate-scale-up">
+              <div class="display-3 mb-2">🏆</div>
+              <h2 class="h2 fw-black text-success mb-4 tracking-wide">¡Partida Completada! {{usuarioActual}}</h2>
+              
+              <!-- Panel de Estadísticas en Rejilla -->
+              <div class="row g-2 mb-4">
+                <div class="col-4">
+                  <div class="bg-black bg-opacity-20 border border-secondary border-opacity-50 p-3 rounded-3">
+                    <small class="text-secondary text-uppercase fw-bold d-block" style="font-size: 10px;">Respondidas</small>
+                    <span class="h4 fw-bold text-white d-block mt-1">{{ numPregunta }}</span>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="bg-black bg-opacity-20 border border-warning border-opacity-25 p-3 rounded-3 border-2">
+                    <small class="text-secondary text-uppercase fw-bold d-block" style="font-size: 10px;">Aciertos</small>
+                    <span class="h3 fw-black text-warning d-block mt-0.5">{{ aciertos }}</span>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="bg-black bg-opacity-20 border border-secondary border-opacity-50 p-3 rounded-3">
+                    <small class="text-secondary text-uppercase fw-bold d-block" style="font-size: 10px;">Tiempo</small>
+                    <span class="h4 fw-bold text-danger d-block mt-1">{{ tiempoSegundos() }}s</span>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Alerta de Sincronización -->
+              <div class="alert alert-success d-flex align-items-center justify-content-center gap-2 small py-2.5 rounded-3 mb-4 border-opacity-20" role="alert">
+                <span class="spinner-grow spinner-grow-sm text-success" role="status"></span>
+                Resultados sincronizados con éxito.
+              </div>
+
+              <!-- Botón de Reinicio -->
+              <button (click)="ngOnInit()" class="btn btn-warning btn-lg w-full py-3 fw-bold text-dark text-uppercase tracking-wider shadow-sm rounded-3">
+                Jugar de Nuevo
+              </button>
+            </div>
+          }
+
+          <!-- ESTADO 3: CARGANDO -->
+          @if (!juegoTerminado && !preguntaActual) {
+            <div class="text-center py-5">
+              <div class="spinner-border text-warning mb-3" style="width: 3rem; height: 3rem;" role="status">
+                <span class="visually-hidden">Cargando...</span>
+              </div>
+              <h5 class="text-light fw-bold mb-1">Cargando Trivia</h5>
+              <small class="text-secondary text-uppercase tracking-wider">Obteniendo preguntas de animales...</small>
+            </div>
+          }
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<button (click)="ngOnDestroy()" routerLink="../../home" class="boton-reinicio-mm">Volver a Home</button>

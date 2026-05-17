@@ -1,1 +1,77 @@
-/* You can add global styles to this file, and also import other style files */
+/* ==========================================================================
+   CONFIGURACIÓN BASE DEL SISTEMA (Gamer Oscuro / Premium)
+   ========================================================================== */
+
+/* Configuración del contenedor raíz e inputs generales */
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  /* Fondo con degradado profundo nocturno (Azul espacial a Violeta oscuro) */
+  background: linear-gradient(135deg, #0f172a, #1e1b4b);
+  background-attachment: fixed;
+  color: #f1f5f9; /* Blanco grisáceo de alta legibilidad para interfaces oscuras */
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ==========================================================================
+   ANIMACIONES GLOBALES (Para cambios de estados y pantallas)
+   ========================================================================== */
+
+/* Entrada suave de elementos */
+.animate-fade-in {
+  animation: fadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Escalado suave con rebote para estados finales, modales y tarjetas */
+.animate-scale-up {
+  animation: scaleUp 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleUp {
+  from {
+    opacity: 0;
+    transform: scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ==========================================================================
+   UTILIDADES COMPLEMENTARIAS PARA COMPONENTES DE JUEGO
+   ========================================================================== */
+
+/* Tipografía ultra pesada para títulos gamer principales */
+.fw-black {
+  font-weight: 900 !important;
+}
+
+/* Espaciado de caracteres para look de consola */
+.tracking-wide {
+  letter-spacing: 0.07em !important;
+}
+
+.tracking-wider {
+  letter-spacing: 0.12em !important;
+}
+
+/* Forzar ancho completo consistente en botones nativos */
+.w-full {
+  width: 100% !important;
+}
