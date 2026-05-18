@@ -12,21 +12,16 @@ import { Supabase } from '../../servicios/supabase';
 })
 export class Chat {
 
-  @ViewChild('scrollContenedor') private miScrollContenedor!: ElementRef;
+  @ViewChild('scrollContenedor') private scroll!: ElementRef;
 
   mensaje = signal('');
   usuarioActual = localStorage.getItem('nombreUsuario');
 
   constructor(public chatService: Supabase) {
     effect(() => {
-      // 1. Vinculamos el efecto al Signal de tus mensajes para que escuche sus cambios.
-      // (Asegurate de que en tu servicio se llame 'mensajes', si es una función o propiedad común adaptalo)
       const disparador = this.chatService.mensajes(); 
-
-      // 2. Le damos un micro-retraso con setTimeout para asegurar que el HTML 
-      // ya terminó de dibujar el nuevo mensaje antes de calcular el scroll.
       setTimeout(() => {
-        this.hacerScrollAlFinal();
+        this.hacerScroll();
       }, 60);
     });
   }
@@ -45,10 +40,10 @@ export class Chat {
     this.mensaje.set('');
   }
 
-  private hacerScrollAlFinal(): void {
+  private hacerScroll(): void {
     try {
-      if (this.miScrollContenedor) {
-        const elemento = this.miScrollContenedor.nativeElement;
+      if (this.scroll) {
+        const elemento = this.scroll.nativeElement;
         elemento.scrollTop = elemento.scrollHeight;
       }
     } catch (err) {
