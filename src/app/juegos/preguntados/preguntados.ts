@@ -35,8 +35,8 @@ export class Preguntados implements OnInit, OnDestroy {
   ngOnInit() {
   this.http.get<any>(this.apiUrl).subscribe({
     next: (res) => {
-      this.preguntas = res.results; // Guardamos el gran universo de juegos acá
-      this.iniciarJuego(); // Recién ahora arrancamos la primera partida
+      this.preguntas = res.results;
+      this.iniciarJuego();
       this.cdr.detectChanges();
     },
     error: (err) => console.error(err)
@@ -50,20 +50,17 @@ export class Preguntados implements OnInit, OnDestroy {
   }
 
   iniciarJuego() {
-  // Reseteamos contadores para la nueva partida
   this.aciertos = 0;
   this.errores = 0;
   this.numPregunta = 0;
   this.juegoTerminado = false;
   this.tiempoSegundos = signal(0); 
-  // Mezclamos y tomamos 10 a partir de lo que ya tenemos guardado en memoria
   this.preguntasSimplificados = this.preguntas.map(pregunta => ({
     nombre: pregunta.question,
     correcta: pregunta.correct_answer,
     incorrectas: pregunta.incorrect_answers
   }));
   console.log('Juegos de esta partida:', this.preguntasSimplificados);
-  // Lanzamos el flujo del juego
   this.iniciarTemporizador();
   this.preguntaJuego();
 }
@@ -78,23 +75,18 @@ export class Preguntados implements OnInit, OnDestroy {
   }
 
   generarOpciones(preguntaActual: any) {
-    // 1. Extraemos la correcta y el array de incorrectas
     console.log(preguntaActual.nombre)
     const correcta = preguntaActual.correcta;
     const incorrectas = preguntaActual.incorrectas;
-    // 2. Combinamos todo en un único array
-    // 3. Mezclamos el resultado final aleatoriamente
     this.opciones = [correcta, ...incorrectas].sort(() => 0.5 - Math.random());
   }
   
   verificarRespuesta(opcionSeleccionada: string) {
-  // CORRECCIÓN: Agregar .correcta para comparar los strings
   if (opcionSeleccionada === this.preguntaActual.correcta) { 
     this.aciertos++;
   } else {
     this.errores++;
   }
-  // Avanzar a la siguiente pregunta
   this.numPregunta++;
   this.preguntaJuego();
 }
@@ -104,14 +96,6 @@ export class Preguntados implements OnInit, OnDestroy {
     this.detenerTemporizador();
     this.guardarEnBaseDatos();
     this.preguntaActual = false;
-    const datosPartida = {
-      usuario: this.usuarioActual,
-      juego: 'preguntados',
-      preguntasAcertadas: this.aciertos,
-      totalPreguntas: this.numPregunta,
-      tiempoSegundos: this.tiempoSegundos,
-      fecha: new Date()
-    };
   }
 
   iniciarTemporizador() {

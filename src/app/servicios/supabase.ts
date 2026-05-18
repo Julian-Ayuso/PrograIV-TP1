@@ -127,5 +127,4 @@ export class Supabase {
       .order('tiempo', { ascending: true });
     this.mensajes.set(data || []);
   }
-
 }

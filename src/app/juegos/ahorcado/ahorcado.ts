@@ -12,12 +12,9 @@ import { Supabase } from '../../servicios/supabase';
 })
 
 export class Ahorcado implements OnInit, OnDestroy {
-  // Configuración inicial
   usuarioActual = localStorage.getItem('nombreUsuario')
   bancoPalabras: string[] = ['ANGULAR', 'COMPONENTE', 'DIRECTIVA', 'INYECCION', 'TYPESCRIPT'];
   abecedario: string[] = 'ABCDEFGHIJKLMNÑOPQRSTUVWXYZ'.split('');
-
-  // Estado del juego
   palabraSecreta: string = '';
   palabraOculta: string[] = [];
   letrasUsadas: Set<string> = new Set();
@@ -25,8 +22,6 @@ export class Ahorcado implements OnInit, OnDestroy {
   maxIntentos: number = 6;
   juegoTerminado: boolean = false;
   resultado: 'GANADO' | 'PERDIDO' | null = null;
-
-  // Métricas para la base de datos
   contadorLetras: number = 0;
   tiempoSegundos = signal(0)
   intervaloTiempo: any;

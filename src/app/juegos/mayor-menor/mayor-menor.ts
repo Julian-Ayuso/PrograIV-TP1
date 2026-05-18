@@ -16,7 +16,7 @@ import { Supabase } from '../../servicios/supabase';
 export class MayorMenor implements OnInit {
 
   usuarioActual = localStorage.getItem('nombreUsuario');
-  private apiUrl = 'https://deckofcardsapi.com';
+  apiUrl = 'https://deckofcardsapi.com';
   deckId: string = '';
   cartaActual: any = null;
   cartaAnterior: any = null;
@@ -77,10 +77,8 @@ export class MayorMenor implements OnInit {
       `${this.apiUrl}/api/deck/${this.deckId}/draw/?count=1`
     ).subscribe({
       next: (res) => {
-        console.log('Carta inicial:', res);
         this.cartaActual = res.cards[0];
         this.cartasRestantes = res.remaining;
-        console.log('Carta actual:', this.cartaActual);
         this.cdr.detectChanges();
       },
       error: (err) => {
